@@ -8,6 +8,10 @@
 
 
 class Terrain {
+public:
+    Terrain(int i);
+private:
+    int d_i;
 
 };
 
