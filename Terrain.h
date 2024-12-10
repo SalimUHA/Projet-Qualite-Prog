@@ -12,6 +12,8 @@ public:
     Terrain(int i);
 private:
     int d_i;
+    bool d_test;
+
 
 };
 
