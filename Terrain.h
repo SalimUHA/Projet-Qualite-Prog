@@ -10,7 +10,7 @@ git //
 class Terrain {
 public:
     Terrain(int i);
-    Terrain();
+    Terrain(int a, int b);
 private:
     int d_i;
     bool d_test;
