@@ -1,4 +1,4 @@
-//
+git //
 // Created by salim on 10/12/2024.
 //
 
@@ -10,6 +10,7 @@
 class Terrain {
 public:
     Terrain(int i);
+    Terrain();
 private:
     int d_i;
     bool d_test;
