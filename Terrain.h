@@ -11,7 +11,7 @@
 
 class Terrain {
 public:
-  Terrain(int largeur, int hauteur);
+  Terrain(int largeur, int hauteur); // Constructeur
   int obtenirLargeur() const;
   int obtenirHauteur() const;
   Cellule obtenirCelulle(const Position &pos) const;
