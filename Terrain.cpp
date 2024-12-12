@@ -7,7 +7,7 @@ using namespace std;
 
 
 
-Terrain::Terrain(int i): d_i{i}
+Terrain::Terrain(int i): d_i{i}, d_test{false}
 {}
 
 
