@@ -19,6 +19,7 @@ public:
 
 private:
 	Position d_position;
+		
 	
 	observateurRobot d_obsRobot;
 
