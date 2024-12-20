@@ -8,21 +8,24 @@
 #include <vector>
 #include "Position.h"
 #include "Celulle.h"
+#include "Observateur.h"
 
 class robot {
 public:
-	Robot(int largeur, int hauteur); // Constructeur d'un robot
+	Robot(const Position& startPos);
+
 	void avancerUneCase();
-	void tournerDroite(int angle);
-	void tournerGauche(int angle);
-	void notifieObservateur(const Position pos, )
+	void tournerDroite();
+	void tournerGauche();
+
+    void ajouterObservateur(Observateur* obs);
+    void supprimerObservateur(Observateur* obs);
+    void notifierObservateurs();
 
 private:
 	Position d_position;
-		
-	
-	observateurRobot d_obsRobot;
-
+	std::string d_direction;
+    std::vector<Observateur*> d_observateurs;
 };
 
 
