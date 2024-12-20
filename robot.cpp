@@ -1,5 +1,6 @@
 //faut verifier
 #include "Robot.h"
+#include "Terrain.h"
 
 Robot::Robot(const Position& startPos)
     : d_position(startPos), d_direction("NORD") {}
@@ -51,4 +52,26 @@ void Robot::tournerGauche() {
     else if (d_direction == "EST") d_direction = "NORD";
 
     notifierObservateurs();
+}
+
+
+bool Robot::detecterObstacle(const Terrain& terrain) const {
+    Position prochainePosition = d_position;
+
+
+    if (d_direction == "NORD") {
+        prochainePosition.deplaceDe(0, -1);
+    } else if (d_direction == "EST") {
+        prochainePosition.deplaceDe(1, 0);
+    } else if (d_direction == "SUD") {
+        prochainePosition.deplaceDe(0, 1);
+    } else if (d_direction == "OUEST") {
+        prochainePosition.deplaceDe(-1, 0);
+    }
+
+
+    if (terrain.obtenirCelulle(prochainePosition).estMur()) {
+        return true;
+    }
+    return false;
 }

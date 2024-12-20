@@ -9,6 +9,7 @@
 #include "Position.h"
 #include "Celulle.h"
 #include "Observateur.h"
+#include "Terrain.h"
 
 class robot {
 public:
@@ -21,6 +22,9 @@ public:
     void ajouterObservateur(Observateur* obs);
     void supprimerObservateur(Observateur* obs);
     void notifierObservateurs();
+
+    bool detecterObstacle(const Terrain& terrain) const;
+
 
 private:
 	Position d_position;
