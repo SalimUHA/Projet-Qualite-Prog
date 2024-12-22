@@ -9,15 +9,18 @@ Position::Position(double x,double y):
 {
 }
 
+Position::Position():
+    d_x{0.0}, d_y{0.0}
+{
+}
+
+
 double Position::x() const
 {
     return d_x;
 }
 
-Position::Position():
-    d_x{0.0}, d_y{0.0}
-{
-}
+
 
 double Position::y() const
 {
