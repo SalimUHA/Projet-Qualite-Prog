@@ -4,49 +4,45 @@
 
 #include "Celulle.h"
 
-Cellule::Cellule(): d_type{"vide"}
-{
-}
-
-Cellule::Cellule(const std::string &type): d_type{type}
+Cellule::Cellule(int type): d_type{type}
 {}
 
-std::string Cellule::ObtenirType() const
-   {
+int Cellule::ObtenirType() const
+{
   return d_type;
-  }
+}
 
 void Cellule::RendreMur()
-  {
-  d_type="mur";
-  }
+{
+  d_type = CELLULE_MUR;
+}
 
 void Cellule::RendreVide()
-      {
-  d_type="vide";
-  }
+{
+  d_type = CELLULE_VIDE;
+}
 
 void Cellule::RendreDepart()
-      {
-  d_type="depart";
-  }
+{
+  d_type = CELLULE_DEPART;
+}
 
 void Cellule::RendreArrive()
-      {
-  d_type="arrive";
-  }
+{
+  d_type = CELLULE_ARRIVEE;
+}
 
 bool Cellule::estMur() const{
-  return d_type=="mur";
-  }
+  return d_type == CELLULE_MUR;
+}
 
 bool Cellule::estVide() const{
-    return d_type=="vide";
-  }
+    return d_type == CELLULE_VIDE;
+}
 
 bool Cellule::estDepart() const{
-    return d_type=="depart";
-  }
+    return d_type == CELLULE_DEPART;
+}
 bool Cellule::estArrivee() const{
-    return d_type=="arrive";
-  }
+    return d_type == CELLULE_ARRIVEE;
+}

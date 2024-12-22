@@ -8,9 +8,14 @@
 #include <string>
 
 class Cellule {
+
+const int CELLULE_VIDE = 0;
+const int CELLULE_MUR = 1;
+const int CELLULE_DEPART = 2;
+const int CELLULE_ARRIVEE = 3;
+
 public:
-  Cellule();
-  Cellule(const std::string &type);
+  Cellule(int type);
   std::string ObtenirType() const;
   void RendreMur();
   void RendreVide();
@@ -22,8 +27,8 @@ public:
   bool estArrivee() const;
   void afficherCelulle() const;
 
-  private:
-    std::string d_type;
+private:
+  int d_type;
 };
 
 
