@@ -95,7 +95,7 @@ position operator/(const position &p, double ratio)
     return division;
 }
 
-Position &Position::operator/=(double r)
+position &position::operator/=(double r)
 {
     d_x/=r;
     d_y/=r;
