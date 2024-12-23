@@ -1,28 +1,33 @@
 //faut verifier
-#include "Robot.h"
+#include "robot.h"
 #include "Terrain.h"
+#include <algorithm>
 
-Robot::Robot(const Position& startPos)
+
+robot::robot(const Position& startPos)
     : d_position(startPos), d_direction("NORD") {}
 
-void Robot::ajouterObservateur(Observateur* obs) {
+void robot::ajouterObservateur(Observateur* obs) {
     d_observateurs.push_back(obs);
 }
 
-void Robot::supprimerObservateur(Observateur* obs) {
-    d_observateurs.erase(
-        std::remove(d_observateurs.begin(), d_observateurs.end(), obs),
-        d_observateurs.end()
-    );
+
+
+void robot::supprimerObservateur(Observateur* obs) {
+    auto it = std::remove(d_observateurs.begin(), d_observateurs.end(), obs);
+    if (it != d_observateurs.end()) {
+        d_observateurs.erase(it, d_observateurs.end());
+    }
 }
 
-void Robot::notifierObservateurs() {
+
+void robot::notifierObservateurs() {
     for (auto* obs : d_observateurs) {
         obs->miseAJour(d_position, d_direction);
     }
 }
 
-void Robot::avancerUneCase() {
+void robot::avancerUneCase() {
     if (d_direction == "NORD") {
         d_position.deplaceDe(0, -1);
     } else if (d_direction == "EST") {
@@ -36,7 +41,7 @@ void Robot::avancerUneCase() {
     notifierObservateurs();
 }
 
-void Robot::tournerDroite() {
+void robot::tournerDroite() {
     if (d_direction == "NORD") d_direction = "EST";
     else if (d_direction == "EST") d_direction = "SUD";
     else if (d_direction == "SUD") d_direction = "OUEST";
@@ -45,7 +50,7 @@ void Robot::tournerDroite() {
     notifierObservateurs();
 }
 
-void Robot::tournerGauche() {
+void robot::tournerGauche() {
     if (d_direction == "NORD") d_direction = "OUEST";
     else if (d_direction == "OUEST") d_direction = "SUD";
     else if (d_direction == "SUD") d_direction = "EST";
@@ -55,7 +60,7 @@ void Robot::tournerGauche() {
 }
 
 
-bool Robot::detecterObstacle(const Terrain& terrain) const {
+bool robot::detecterObstacle(const Terrain& terrain) const {
     Position prochainePosition = d_position;
 
 
