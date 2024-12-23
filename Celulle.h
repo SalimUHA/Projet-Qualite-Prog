@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-class Cellule {
+class cellule {
 
 static constexpr int CELLULE_VIDE = 0;
 static constexpr int CELLULE_MUR = 1;
@@ -15,8 +15,8 @@ static constexpr int CELLULE_DEPART = 2;
 static constexpr int CELLULE_ARRIVEE = 3;
 
 public:
-  Cellule(int type);
-  Cellule();
+  cellule(int type);
+  cellule();
   int  obtenirType() const;
   void rendreMur();
   void rendreVide();
@@ -27,7 +27,7 @@ public:
   bool estDepart() const;
   bool estArrivee() const;
   void afficherCellule() const;
-  Cellule& operator=(const Cellule &c2);
+  cellule& operator=(const cellule &c2);
 
 private:
   int d_type;

@@ -23,10 +23,17 @@ public:
     friend position operator+(const position &p1, const position &p2);
     position &operator+=(const position &p);
 
+<<<<<<< Updated upstream
     friend position operator /(const position &p, double ratio);
     position &operator /=(double r);
 
     friend position operator *(const double &ratio, const position &p);
+=======
+    friend Position operator /(const Position &p, double ratio);
+    Position &operator /=(double ratio);
+
+    friend position operator *(const double &r, const position &p);
+>>>>>>> Stashed changes
 private:
     double d_x,d_y;
 };
