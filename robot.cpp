@@ -2,6 +2,8 @@
 #include "Robot.h"
 #include "Terrain.h"
 #include <algorithm>
+
+
 Robot::Robot(const Position& startPos)
     : d_position(startPos), d_direction("NORD") {}
 
@@ -9,7 +11,7 @@ void Robot::ajouterObservateur(Observateur* obs) {
     d_observateurs.push_back(obs);
 }
 
- 
+
 
 void Robot::supprimerObservateur(Observateur* obs) {
     auto it = std::remove(d_observateurs.begin(), d_observateurs.end(), obs);
