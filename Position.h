@@ -8,31 +8,31 @@
 #include <istream>
 
 
-class Position{
+class position{
 public:
-    Position(double x,double y);
+    position(double x,double y);
     Position();
     double x() const;
     double y() const;
     void deplaceEn(double x, double y);
     void deplaceDe(double dx, double dy);
-    double distance(const Position &p2) const;
+    double distance(const position &p2) const;
     void affiche(std::ostream &ost) const;
     void lit(std::istream &ist);
 
-    friend Position operator+(const Position &p1, const Position &p2);
-    Position &operator+=(const Position &p);
+    friend position operator+(const position &p1, const position &p2);
+    position &operator+=(const position &p);
 
-    friend Position operator /(const Position &p, double r);
-    Position &operator /=(double r);
+    friend position operator /(const position &p, double ratio);
+    position &operator /=(double r);
 
-    friend Position operator *(const double &r, const Position &p);
+    friend position operator *(const double &ratio, const position &p);
 private:
     double d_x,d_y;
 };
 
-std::istream& operator>>(std::istream &ist, Position &p);
-std::ostream& operator<<(std::ostream &ost, const Position &p);
+std::istream& operator>>(std::istream &ist, position &p);
+std::ostream& operator<<(std::ostream &ost, const position &p);
 
 
 #endif //POSITION_H

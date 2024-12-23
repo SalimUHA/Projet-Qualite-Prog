@@ -13,17 +13,17 @@
 
 class robot {
 public:
-	robot(const Position& startPos);
+	robot(const position& startPos);
 
 	void avancerUneCase();
 	void tournerDroite();
 	void tournerGauche();
 
-    void ajouterObservateur(Observateur* obs);
-    void supprimerObservateur(Observateur* obs);
+    void ajouterObservateur(observateur* obs);
+    void supprimerObservateur(observateur* obs);
     void notifierObservateurs();
 
-    bool detecterObstacle(const Terrain& terrain) const;
+    bool detecterObstacle(const terrain& terrain) const;
 
 
 private:

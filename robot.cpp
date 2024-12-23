@@ -4,16 +4,16 @@
 #include <algorithm>
 
 
-robot::robot(const Position& startPos)
+robot::robot(const position& startPos)
     : d_position(startPos), d_direction("NORD") {}
 
-void robot::ajouterObservateur(Observateur* obs) {
+void robot::ajouterObservateur(observateur* obs) {
     d_observateurs.push_back(obs);
 }
 
 
 
-void robot::supprimerObservateur(Observateur* obs) {
+void robot::supprimerObservateur(observateur* obs) {
     auto it = std::remove(d_observateurs.begin(), d_observateurs.end(), obs);
     if (it != d_observateurs.end()) {
         d_observateurs.erase(it, d_observateurs.end());
