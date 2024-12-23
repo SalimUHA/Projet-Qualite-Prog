@@ -2,29 +2,29 @@
 // Created by salim on 11/12/2024.
 //
 
-#include "Terrain.h"
+#include "terrain.h"
 
-Terrain::Terrain(int largeur, int hauteur):
+terrain::Terrain(int largeur, int hauteur):
  d_largeur(largeur), d_hauteur(hauteur)
 {
   d_grille.resize(hauteur, std::vector<Cellule>(largeur,Cellule()));
 }
 
-int Terrain::obtenirLargeur() const
+int terrain::obtenirLargeur() const
     {
     return d_largeur;
     }
-int Terrain::obtenirHauteur() const
+int terrain::obtenirHauteur() const
         {
   return d_hauteur;
   }
 
-Cellule Terrain::obtenirCellule(const Position &pos) const
+Cellule terrain::obtenirCellule(const position &pos) const
       {
           return d_grille[pos.y()][pos.x()];
       }
 
-Position Terrain::obtenirPositionDepart() const
+position terrain::obtenirPositionDepart() const
           {
   Position depart;
   int i = 0, j = 0;
@@ -45,9 +45,9 @@ Position Terrain::obtenirPositionDepart() const
   return depart;
   }
 
-Position Terrain::obtenirPositionArrivee() const
+Position terrain::obtenirPositionArrivee() const
 {
-  Position arrivee;
+  position arrivee;
   int i = 0, j = 0;
   bool trouve = false;
 
@@ -66,22 +66,22 @@ Position Terrain::obtenirPositionArrivee() const
   return arrivee;
 }
 
-void Terrain::definirMur(const Position &pos)
+void terrain::definirMur(const Position &pos)
     {
   d_grille[pos.y()][pos.x()].rendreMur();
   }
 
-void Terrain::definirDepart(const Position &pos)
+void terrain::definirDepart(const Position &pos)
       {
   d_grille[pos.y()][pos.x()].rendreDepart();
   }
 
-void Terrain::definirArrivee(const Position &pos)
+void terrain::definirArrivee(const Position &pos)
       {
   d_grille[pos.y()][pos.x()].rendreArrivee();
   }
 
-void Terrain::afficherTerrain() const
+void terrain::afficherTerrain() const
       {
     for (int i = 0; i < d_hauteur; ++i)
   {
