@@ -13,7 +13,7 @@
 
 class robot {
 public:
-	Robot(const Position& startPos);
+	robot(const Position& startPos);
 
 	void avancerUneCase();
 	void tournerDroite();

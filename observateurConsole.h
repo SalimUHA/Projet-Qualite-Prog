@@ -7,11 +7,11 @@
 #ifndef OBSERVATEUR_CONSOLE_H
 #define OBSERVATEUR_CONSOLE_H
 
-#include "Observateur.h"
+#include "observateur.h"
 #include <iostream>
 
-class ObservateurConsole : public Observateur {
+class observateurConsole : public observateur {
 public:
     void miseAJour(const Position& pos, const std::string& direction) override ;
-
+};
 #endif //OBSERVATEURCONSOLE_H

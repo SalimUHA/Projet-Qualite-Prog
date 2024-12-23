@@ -6,7 +6,7 @@
 #define OBSERVATEUR_H
 #include "Position.h"
 
-class Observateur {
+class observateur {
 public:
     virtual void miseAJour(const Position& pos, const std::string& direction) = 0;
     virtual ~Observateur() = default;
