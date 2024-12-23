@@ -5,6 +5,6 @@
 #include "observateurConsole.h"
 #include <iostream>
 
-void observateurConsole::miseAJour(const Position& pos, const std::string& direction) {
+void observateurConsole::miseAJour(const position& pos, const std::string& direction) {
     std::cout << "Position : " << pos << " | Direction : " << direction << std::endl;
 }

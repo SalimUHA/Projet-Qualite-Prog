@@ -78,7 +78,7 @@ std::ostream &operator<<(std::ostream &ost, const position &p)
 
 position operator+(const position &p1, const position &p2)
 {
-    Position somme{p1.d_x+p2.d_x,p1.d_y+p2.d_y};
+    position somme{p1.d_x+p2.d_x,p1.d_y+p2.d_y};
     return somme;
 }
 

@@ -8,8 +8,8 @@
 
 class observateur {
 public:
-    virtual void miseAJour(const Position& pos, const std::string& direction) = 0;
-    virtual ~Observateur() = default;
+    virtual void miseAJour(const position& pos, const std::string& direction) = 0;
+    virtual ~observateur() = default;
 };
 
 

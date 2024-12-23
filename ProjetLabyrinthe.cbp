@@ -32,7 +32,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Celulle.cpp" />
+		<Unit filename="Celulle.h" />
+		<Unit filename="Position.cpp" />
+		<Unit filename="Position.h" />
+		<Unit filename="Terrain.cpp" />
+		<Unit filename="Terrain.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="observateur.cpp" />
+		<Unit filename="observateur.h" />
+		<Unit filename="observateurConsole.cpp" />
+		<Unit filename="observateurConsole.h" />
+		<Unit filename="robot.cpp" />
+		<Unit filename="robot.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

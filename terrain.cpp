@@ -4,29 +4,29 @@
 
 #include "terrain.h"
 
-terrain::Terrain(int largeur, int hauteur):
+terrain::terrain(int largeur, int hauteur):
  d_largeur(largeur), d_hauteur(hauteur)
 {
-  d_grille.resize(hauteur, std::vector<Cellule>(largeur,Cellule()));
+  d_grille.resize(hauteur, std::vector<cellule>(largeur,cellule()));
 }
 
 int terrain::obtenirLargeur() const
-    {
+{
     return d_largeur;
-    }
+}
 int terrain::obtenirHauteur() const
-        {
-  return d_hauteur;
-  }
+{
+    return d_hauteur;
+}
 
-Cellule terrain::obtenirCellule(const position &pos) const
-      {
-          return d_grille[pos.y()][pos.x()];
-      }
+cellule terrain::obtenirCellule(const position &pos) const
+{
+    return d_grille[pos.y()][pos.x()];
+}
 
 position terrain::obtenirPositionDepart() const
-          {
-  Position depart;
+{
+  position depart;
   int i = 0, j = 0;
   bool trouve = false;
 
@@ -43,9 +43,9 @@ position terrain::obtenirPositionDepart() const
   }
 
   return depart;
-  }
+}
 
-Position terrain::obtenirPositionArrivee() const
+position terrain::obtenirPositionArrivee() const
 {
   position arrivee;
   int i = 0, j = 0;
@@ -66,20 +66,20 @@ Position terrain::obtenirPositionArrivee() const
   return arrivee;
 }
 
-void terrain::definirMur(const Position &pos)
-    {
+void terrain::definirMur(const position &pos)
+{
   d_grille[pos.y()][pos.x()].rendreMur();
-  }
+}
 
-void terrain::definirDepart(const Position &pos)
-      {
+void terrain::definirDepart(const position &pos)
+{
   d_grille[pos.y()][pos.x()].rendreDepart();
-  }
+}
 
-void terrain::definirArrivee(const Position &pos)
-      {
+void terrain::definirArrivee(const position &pos)
+{
   d_grille[pos.y()][pos.x()].rendreArrivee();
-  }
+}
 
 void terrain::afficherTerrain() const
       {

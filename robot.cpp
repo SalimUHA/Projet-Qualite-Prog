@@ -60,8 +60,8 @@ void robot::tournerGauche() {
 }
 
 
-bool robot::detecterObstacle(const Terrain& terrain) const {
-    Position prochainePosition = d_position;
+bool robot::detecterObstacle(const terrain& terrain) const {
+    position prochainePosition = d_position;
 
 
     if (d_direction == "NORD") {
@@ -75,7 +75,7 @@ bool robot::detecterObstacle(const Terrain& terrain) const {
     }
 
 
-    if (terrain.obtenirCelulle(prochainePosition).estMur()) {
+    if (terrain.obtenirCellule(prochainePosition).estMur()) {
         return true;
     }
     return false;

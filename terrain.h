@@ -14,7 +14,7 @@ public:
   terrain(int largeur, int hauteur); // Constructeur
   int obtenirLargeur() const;
   int obtenirHauteur() const;
-  Cellule obtenirCellule(const position &pos) const;
+  cellule obtenirCellule(const position &pos) const;
   position obtenirPositionDepart() const;
   position obtenirPositionArrivee() const;
   void definirMur(const position& pos);
@@ -25,7 +25,7 @@ public:
   void afficherTerrain() const;
 private:
   int d_largeur, d_hauteur;
-  std::vector<std::vector<Cellule>> d_grille;
+  std::vector<std::vector<cellule>> d_grille;
   position d_depart;
   position d_arrive;
   position d_robotPos;

@@ -27,9 +27,9 @@ public:
 
 
 private:
-	Position d_position;
+	position d_position;
 	std::string d_direction;
-    std::vector<Observateur*> d_observateurs;
+    std::vector<observateur*> d_observateurs;
 };
 
 

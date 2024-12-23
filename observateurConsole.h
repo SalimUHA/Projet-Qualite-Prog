@@ -12,6 +12,6 @@
 
 class observateurConsole : public observateur {
 public:
-    void miseAJour(const Position& pos, const std::string& direction) override ;
+    void miseAJour(const position& pos, const std::string& direction) override ;
 };
 #endif //OBSERVATEURCONSOLE_H
