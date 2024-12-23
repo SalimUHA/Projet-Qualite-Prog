@@ -9,10 +9,10 @@
 
 class Cellule {
 
-const int CELLULE_VIDE = 0;
-const int CELLULE_MUR = 1;
-const int CELLULE_DEPART = 2;
-const int CELLULE_ARRIVEE = 3;
+static constexpr int CELLULE_VIDE = 0;
+static constexpr int CELLULE_MUR = 1;
+static constexpr int CELLULE_DEPART = 2;
+static constexpr int CELLULE_ARRIVEE = 3;
 
 public:
   Cellule(int type);
