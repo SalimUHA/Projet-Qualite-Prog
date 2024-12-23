@@ -14,7 +14,7 @@ public:
   Terrain(int largeur, int hauteur); // Constructeur
   int obtenirLargeur() const;
   int obtenirHauteur() const;
-  Cellule obtenirCelulle(const Position &pos) const;
+  Cellule obtenirCellule(const Position &pos) const;
   Position obtenirPositionDepart() const;
   Position obtenirPositionArrivee() const;
   void definirMur(const Position& pos);
@@ -22,7 +22,7 @@ public:
   void definirArrivee(const Position& pos);
   void chargerDepuisFichier(const std::string &nomFichier);
   void sauvegarderDansFichier(const std::string &nomFichier) const;
-  void AfficherTerrain() const;
+  void afficherTerrain() const;
 private:
   int d_largeur, d_hauteur;
   std::vector<std::vector<Cellule>> d_grille;

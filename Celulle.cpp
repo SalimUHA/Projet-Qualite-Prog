@@ -3,31 +3,35 @@
 //
 
 #include "Celulle.h"
+using namespace std;
 
 Cellule::Cellule(int type): d_type{type}
 {}
 
-int Cellule::ObtenirType() const
+Cellule::Cellule(): d_type{CELLULE_VIDE}
+{}
+
+int Cellule::obtenirType() const
 {
   return d_type;
 }
 
-void Cellule::RendreMur()
+void Cellule::rendreMur()
 {
   d_type = CELLULE_MUR;
 }
 
-void Cellule::RendreVide()
+void Cellule::rendreVide()
 {
   d_type = CELLULE_VIDE;
 }
 
-void Cellule::RendreDepart()
+void Cellule::rendreDepart()
 {
   d_type = CELLULE_DEPART;
 }
 
-void Cellule::RendreArrive()
+void Cellule::rendreArrivee()
 {
   d_type = CELLULE_ARRIVEE;
 }
@@ -45,4 +49,25 @@ bool Cellule::estDepart() const{
 }
 bool Cellule::estArrivee() const{
     return d_type == CELLULE_ARRIVEE;
+}
+
+void Cellule::afficherCellule() const
+  {
+            if (estMur())
+                std::cout << "X";
+            else if (estDepart())
+                std::cout << "S";
+            else if (estArrivee())
+                std::cout << "E";
+            else
+                std::cout << ".";
+}
+
+Cellule& Cellule::operator=(const Cellule& c2)
+{
+    if (this != &c2)
+  {
+        d_type = c2.d_type;
+  }
+    return *this;
 }

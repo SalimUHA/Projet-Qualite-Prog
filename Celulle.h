@@ -16,16 +16,18 @@ const int CELLULE_ARRIVEE = 3;
 
 public:
   Cellule(int type);
-  std::string ObtenirType() const;
-  void RendreMur();
-  void RendreVide();
-  void RendreDepart();
-  void RendreArrive();
+  Cellule();
+  int  obtenirType() const;
+  void rendreMur();
+  void rendreVide();
+  void rendreDepart();
+  void rendreArrivee();
   bool estMur() const;
   bool estVide() const;
   bool estDepart() const;
   bool estArrivee() const;
-  void afficherCelulle() const;
+  void afficherCellule() const;
+  Cellule& operator=(const Cellule &c2);
 
 private:
   int d_type;
