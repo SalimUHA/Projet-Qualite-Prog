@@ -85,7 +85,7 @@ Position operator+(const Position &p1, const Position &p2)
 Position &Position::operator+=(const Position &p)
 {
     d_x+=p.d_x;
-    d_y+=d_y;
+    d_y+=p.d_y;
     return *this;
 }
 
