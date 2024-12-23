@@ -2,7 +2,7 @@
 // Created by salim on 12/12/2024.
 //
 
-#include "Position.h"
+#include "position.h"
 #include <cmath>
 position::position(double x,double y):
     d_x{x},d_y{y}
