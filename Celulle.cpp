@@ -2,56 +2,56 @@
 // Created by salim on 12/12/2024.
 //
 
-#include "Celulle.h"
+#include "celulle.h"
 using namespace std;
 
-Cellule::Cellule(int type): d_type{type}
+cellule::cellule(int type): d_type{type}
 {}
 
-Cellule::Cellule(): d_type{CELLULE_VIDE}
+cellule::cellule(): d_type{CELLULE_VIDE}
 {}
 
-int Cellule::obtenirType() const
+int cellule::obtenirType() const
 {
   return d_type;
 }
 
-void Cellule::rendreMur()
+void cellule::rendreMur()
 {
   d_type = CELLULE_MUR;
 }
 
-void Cellule::rendreVide()
+void cellule::rendreVide()
 {
   d_type = CELLULE_VIDE;
 }
 
-void Cellule::rendreDepart()
+void cellule::rendreDepart()
 {
   d_type = CELLULE_DEPART;
 }
 
-void Cellule::rendreArrivee()
+void cellule::rendreArrivee()
 {
   d_type = CELLULE_ARRIVEE;
 }
 
-bool Cellule::estMur() const{
+bool cellule::estMur() const{
   return d_type == CELLULE_MUR;
 }
 
-bool Cellule::estVide() const{
+bool cellule::estVide() const{
     return d_type == CELLULE_VIDE;
 }
 
-bool Cellule::estDepart() const{
+bool cellule::estDepart() const{
     return d_type == CELLULE_DEPART;
 }
-bool Cellule::estArrivee() const{
+bool cellule::estArrivee() const{
     return d_type == CELLULE_ARRIVEE;
 }
 
-void Cellule::afficherCellule() const
+void cellule::afficherCellule() const
   {
             if (estMur())
                 std::cout << "X";
@@ -63,7 +63,7 @@ void Cellule::afficherCellule() const
                 std::cout << ".";
 }
 
-Cellule& Cellule::operator=(const Cellule& c2)
+cellule& cellule::operator=(const cellule& c2)
 {
     if (this != &c2)
   {
