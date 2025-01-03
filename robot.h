@@ -14,7 +14,8 @@
 class robot {
 public:
 	robot(const position& startPos);
-
+    position obtenirPosition() const;
+    void deplacer(const position& nouvellePos);
 	void avancerUneCase();
 	void tournerDroite();
 	void tournerGauche();

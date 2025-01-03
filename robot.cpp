@@ -7,6 +7,13 @@
 robot::robot(const position& startPos)
     : d_position(startPos), d_direction("NORD") {}
 
+position robot::obtenirPosition() const {
+    return d_position;
+}
+
+void robot::deplacer(const position& nouvellePos){
+    d_position.deplaceEn(nouvellePos.x(),nouvellePos.y());
+}
 void robot::ajouterObservateur(observateur* obs) {
     d_observateurs.push_back(obs);
 }
