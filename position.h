@@ -14,8 +14,8 @@ public:
     position();
     double x() const;
     double y() const;
-    void deplaceEn(double x, double y);
-    void deplaceDe(double dx, double dy);
+    void deplaceEn(int x, int y);
+    void deplaceDe(int dx, int dy);
     double distance(const position &p2) const;
     void affiche(std::ostream &ost) const;
     void lit(std::istream &ist);

@@ -27,13 +27,13 @@ double position::y() const
     return d_y;
 }
 
-void position::deplaceEn(double x,double y)
+void position::deplaceEn(int x,int y)
 {
     d_x=x;
     d_y=y;
 }
 
-void position::deplaceDe(double x,double y)
+void position::deplaceDe(int x,int y)
 {
     d_x+=x;
     d_y+=y;
