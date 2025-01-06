@@ -1,0 +1,10 @@
+18 9
+XXXXXXXXXXXXXXXXXX
+X......XXXX......X
+X......X.........X
+X..X.............X
+X..X.....X.......X
+X..X.....X.......X
+X..X...........XEX
+X......S.........X
+XXXXXXXXXXXXXXXXXX

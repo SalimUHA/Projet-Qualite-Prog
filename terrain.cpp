@@ -10,6 +10,13 @@ terrain::terrain(int largeur, int hauteur):
   d_grille.resize(hauteur, std::vector<cellule>(largeur,cellule()));
 }
 
+void terrain::initialiserTerrain(int largeur, int hauteur)
+{
+    d_largeur = largeur;
+    d_hauteur = hauteur;
+    d_grille.clear();
+    d_grille.resize(hauteur, std::vector<cellule>(largeur, cellule()));
+}
 int terrain::obtenirLargeur() const
 {
     return d_largeur;
@@ -118,7 +125,44 @@ void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
 
 }
 
-void terrain::chargerDepuisFichier(const std::string &nomFichier)
+void terrain::chargerDepuisFichier(const std::string& nomFichier)
 {
+    std::ifstream fichier(nomFichier);
 
+    if (!fichier)
+    {
+        std::cout << "erreur, impossible d'ouvrir le fichier " << nomFichier << std::endl;
+        return;
+    }
+
+    int largeur, hauteur;
+    fichier >> largeur >> hauteur;
+
+    if (fichier.fail())
+    {
+        std::cout<< "erreur, impossible de lire les dimensions du terrain dans le fichier " << nomFichier << std::endl;
+        return;
+    }
+
+
+    initialiserTerrain(largeur, hauteur);
+
+    for (int i = 0; i < d_hauteur; ++i)
+    {
+        for (int j = 0; j < d_largeur; ++j)
+        {
+            char type;
+            fichier >> type;
+
+            if (fichier.fail())
+            {
+                std::cout << "erreur, caractere invalide ou incomplete" << std::endl;
+                return;
+            }
+
+            d_grille[i][j].initialiserDepuisCaractere(type);
+        }
+    }
+
+    fichier.close();
 }

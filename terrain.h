@@ -13,6 +13,7 @@
 class terrain {
 public:
   terrain(int largeur, int hauteur); // Constructeur
+  void initialiserTerrain(int largeur, int hauteur);
   int obtenirLargeur() const;
   int obtenirHauteur() const;
   cellule obtenirCellule(const position &pos) const;

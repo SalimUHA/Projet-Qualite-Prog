@@ -64,12 +64,25 @@ void testSaveTerrain()
     terrain.afficherTerrain();
 
     std::cout << "Terrain sauvegarde dans le fichier 'terrain.txt'." << std::endl;
+}
 
+void testerChargementDepuisFichier()
+{
+    std::string nomFichier = "terraintest.txt";
+
+    terrain terrain(0, 0);
+
+    terrain.chargerDepuisFichier(nomFichier);
+
+    std::cout << "Terrain depuis le fichier '" << nomFichier << "' :\n";
+
+    terrain.afficherTerrain();
 }
 int main()
 {
     //testRobot();
-    testSaveTerrain();
+    //testSaveTerrain();
+    testerChargementDepuisFichier();
     return 0;
 }
 
