@@ -24,6 +24,7 @@ public:
     bool estVide() const;
     bool estDepart() const;
     bool estArrivee() const;
+    char obtenirCaractere() const;
     void afficherCellule() const;
     cellule& operator=(const cellule &c2);
 

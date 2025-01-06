@@ -50,17 +50,28 @@ bool cellule::estDepart() const{
 bool cellule::estArrivee() const{
     return d_type == CELLULE_ARRIVEE;
 }
-
+char cellule::obtenirCaractere() const
+{
+        if (estMur())
+    {
+        return 'X'; // Mur
+    }
+    else if (estDepart())
+    {
+        return 'S'; // Départ
+    }
+    else if (estArrivee())
+    {
+        return 'E'; // Arrivée
+    }
+    else
+    {
+        return '.'; // Case vide
+    }
+}
 void cellule::afficherCellule() const
-  {
-            if (estMur())
-                std::cout << "X";
-            else if (estDepart())
-                std::cout << "S";
-            else if (estArrivee())
-                std::cout << "E";
-            else
-                std::cout << ".";
+{
+        std::cout << obtenirCaractere();
 }
 
 cellule& cellule::operator=(const cellule& c2)
