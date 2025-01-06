@@ -82,3 +82,28 @@ cellule& cellule::operator=(const cellule& c2)
   }
     return *this;
 }
+
+void cellule::initialiserDepuisCaractere(char c)
+{
+    if (c == 'X')
+    {
+        rendreMur();
+    }
+    else if (c == 'S')
+    {
+        rendreDepart();
+    }
+    else if (c == 'E')
+    {
+        rendreArrivee();
+    }
+    else if (c == '.')
+    {
+        rendreVide();
+    }
+    else
+    {
+        std::cerr << "Caractere inconnu '" << c << "'. On le rend vide" << std::endl;
+        rendreVide();
+    }
+}

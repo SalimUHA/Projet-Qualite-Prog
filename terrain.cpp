@@ -117,3 +117,8 @@ void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
     fichier.close();
 
 }
+
+void terrain::chargerDepuisFichier(const std::string &nomFichier)
+{
+
+}
