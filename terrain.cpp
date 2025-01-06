@@ -92,3 +92,28 @@ void terrain::afficherTerrain() const
       std::cout << std::endl;
     }
   }
+
+void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
+{
+    std::ofstream fichier(nomFichier);
+
+    if(!fichier)
+    {
+        std::cout<<"Erreur, impossible d'ouvrir le fichier du nom de : "<<nomFichier;
+        return;
+    }
+
+    fichier << d_largeur << " " << d_hauteur << "\n";
+
+    for (int i = 0; i < d_hauteur; ++i)
+    {
+        for (int j = 0; j < d_largeur; ++j)
+        {
+            fichier << d_grille[i][j].obtenirCaractere();
+        }
+        fichier << "\n";
+    }
+
+    fichier.close();
+
+}

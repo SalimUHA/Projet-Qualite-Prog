@@ -15,13 +15,9 @@ void testTerrain(){
     terrain.definirArrivee(position(3, 3));
 
     terrain.afficherTerrain();
-
-
 }
 
-
-
-int main()
+void testRobot()
 {
     terrain terrain(5, 5);
 
@@ -51,6 +47,29 @@ int main()
     } else {
         robot.avancerUneCase();
     }
+}
+
+void testSaveTerrain()
+{
+    terrain terrain(5, 5);
+
+    // Configuration du terrain
+    terrain.definirMur(position(0, 0));
+    terrain.definirMur(position(1, 0));
+    terrain.definirDepart(position(1, 1));
+    terrain.definirArrivee(position(3, 3));
+
+    terrain.sauvegarderDansFichier("terrain.txt");
+
+    terrain.afficherTerrain();
+
+    std::cout << "Terrain sauvegarde dans le fichier 'terrain.txt'." << std::endl;
+
+}
+int main()
+{
+    //testRobot();
+    testSaveTerrain();
     return 0;
 }
 

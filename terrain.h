@@ -6,6 +6,7 @@
 #define TERRAIN_H
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "position.h"
 #include "celulle.h"
 
