@@ -27,6 +27,9 @@ public:
   void afficherTerrain() const;
   void afficherTerrain(const position& robotPos) const;
   bool estLibre(int x, int y) const;
+  char getCase(int x, int y) const;
+
+
 private:
   int d_largeur, d_hauteur;
   std::vector<std::vector<cellule>> d_grille;

@@ -185,7 +185,14 @@ void terrain::chargerDepuisFichier(const std::string& nomFichier)
     fichier.close();
 }
 
-bool terrain::estLibre(int x, int y) const {
+bool terrain::estLibre(int x, int y) const
+{
 
     return x >= 0 && x < d_grille.size() && y >= 0 && y < d_grille[0].size() && d_grille[x][y] == ' ';
+}
+
+char terrain::getCase(int x, int y) const
+{
+
+    return d_grille[x][y];
 }
