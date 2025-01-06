@@ -107,3 +107,8 @@ position operator*(double r, const position &p)
     position multiple{p.x()*r,p.y()*r};
     return multiple;
 }
+
+bool position::operator!=(const position& other) const
+{
+    return d_x != other.d_x || d_y != other.d_y;
+}

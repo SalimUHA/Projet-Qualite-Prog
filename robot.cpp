@@ -1,4 +1,4 @@
-//faut verifier
+
 #include "robot.h"
 #include "Terrain.h"
 #include <algorithm>
@@ -28,10 +28,12 @@ void robot::supprimerObservateur(observateur* obs) {
 }
 
 
-void robot::notifierObservateurs() {
-    for (auto* obs : d_observateurs) {
+void robot::notifierObservateurs()
+{
+    for (auto* obs : d_observateurs)
+        {
         obs->miseAJour(d_position, d_direction);
-    }
+        }
 }
 
 void robot::avancerUneCase() {
