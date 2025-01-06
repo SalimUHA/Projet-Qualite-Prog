@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1734985814 source:c:\users\hp\documents\github\projet-qualite-prog\celulle.cpp
+1736182221 source:c:\users\hp\documents\github\projet-qualite-prog\celulle.cpp
 	"celulle.h"
 
-1735922259 c:\users\hp\documents\github\projet-qualite-prog\celulle.h
+1736182010 c:\users\hp\documents\github\projet-qualite-prog\celulle.h
 	<iostream>
 	<string>
 
@@ -24,15 +24,16 @@
 	"observateur.h"
 	<iostream>
 
-1734987325 source:c:\users\hp\documents\github\projet-qualite-prog\main.cpp
+1736186158 source:c:\users\hp\documents\github\projet-qualite-prog\main.cpp
 	<iostream>
 	"Terrain.h"
 	"robot.h"
 	"observateurConsole.h"
 
-1734986138 c:\users\hp\documents\github\projet-qualite-prog\terrain.h
+1736183328 c:\users\hp\documents\github\projet-qualite-prog\terrain.h
 	<iostream>
 	<vector>
+	<fstream>
 	"position.h"
 	"celulle.h"
 
@@ -40,15 +41,15 @@
 	"position.h"
 	<cmath>
 
-1734986338 source:c:\users\hp\documents\github\projet-qualite-prog\terrain.cpp
+1736185076 source:c:\users\hp\documents\github\projet-qualite-prog\terrain.cpp
 	"terrain.h"
 
-1735924450 source:c:\users\hp\documents\github\projet-qualite-prog\robot.cpp
+1736186114 source:c:\users\hp\documents\github\projet-qualite-prog\robot.cpp
 	"robot.h"
 	"Terrain.h"
 	<algorithm>
 
-1735924279 c:\users\hp\documents\github\projet-qualite-prog\robot.h
+1736185816 c:\users\hp\documents\github\projet-qualite-prog\robot.h
 	<iostream>
 	<vector>
 	"Position.h"
@@ -112,11 +113,12 @@
 	<iostream>
 	<string>
 
-1736172633 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\main.cpp
+1736177048 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\main.cpp
 	<iostream>
 	"Terrain.h"
 	"robot.h"
 	"observateurConsole.h"
+	"observateurStatistiques.h"
 
 1736172039 c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\terrain.h
 	<iostream>
@@ -125,7 +127,7 @@
 	"position.h"
 	"celulle.h"
 
-1735928615 c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\position.h
+1736175990 c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\position.h
 	<ostream>
 	<istream>
 
@@ -151,15 +153,23 @@
 	"observateurConsole.h"
 	<iostream>
 
-1735928615 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\position.cpp
+1736176009 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\position.cpp
 	"position.h"
 	<cmath>
 
-1735928615 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\robot.cpp
+1736177006 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\robot.cpp
 	"robot.h"
 	"Terrain.h"
 	<algorithm>
 
 1736172319 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\terrain.cpp
 	"terrain.h"
+
+1736176421 c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\observateurstatistiques.h
+	"observateur.h"
+	"Position.h"
+
+1736176421 source:c:\users\salim\desktop\salim ecole\l3\qualité de prog\projet\projet-qualite-prog\observateurstatistiques.cpp
+	"observateurStatistiques.h"
+	<iostream>
 

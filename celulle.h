@@ -10,6 +10,7 @@
     static constexpr int CELLULE_MUR = 1;
     static constexpr int CELLULE_DEPART = 2;
     static constexpr int CELLULE_ARRIVEE = 3;
+    static constexpr int CELLULE_ROBOT = 4;
 class cellule {
 
 public:
@@ -20,10 +21,12 @@ public:
     void rendreVide();
     void rendreDepart();
     void rendreArrivee();
+    void rendreRobot();
     bool estMur() const;
     bool estVide() const;
     bool estDepart() const;
     bool estArrivee() const;
+    bool estRobot() const;
     void initialiserDepuisCaractere(char c);
     char obtenirCaractere() const;
     void afficherCellule() const;

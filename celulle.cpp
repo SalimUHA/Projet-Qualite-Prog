@@ -36,6 +36,10 @@ void cellule::rendreArrivee()
   d_type = CELLULE_ARRIVEE;
 }
 
+void cellule::rendreRobot()
+{
+    d_type = CELLULE_ROBOT;
+}
 bool cellule::estMur() const{
   return d_type == CELLULE_MUR;
 }
@@ -50,6 +54,10 @@ bool cellule::estDepart() const{
 bool cellule::estArrivee() const{
     return d_type == CELLULE_ARRIVEE;
 }
+
+bool cellule::estRobot() const {
+    return d_type == CELLULE_ROBOT;
+}
 char cellule::obtenirCaractere() const
 {
         if (estMur())
@@ -58,11 +66,15 @@ char cellule::obtenirCaractere() const
     }
     else if (estDepart())
     {
-        return 'S'; // Départ
+        return 'E'; // Départ
     }
     else if (estArrivee())
     {
-        return 'E'; // Arrivée
+        return 'S'; // Arrivée
+    }
+    else if (estRobot())
+    {
+        return 'R';
     }
     else
     {
@@ -89,13 +101,17 @@ void cellule::initialiserDepuisCaractere(char c)
     {
         rendreMur();
     }
-    else if (c == 'S')
+    else if (c == 'E')
     {
         rendreDepart();
     }
-    else if (c == 'E')
+    else if (c == 'S')
     {
         rendreArrivee();
+    }
+    else if (c == 'R')
+    {
+        rendreRobot();
     }
     else if (c == '.')
     {

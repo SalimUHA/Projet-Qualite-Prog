@@ -1,4 +1,4 @@
-//faut verifier
+
 #include "robot.h"
 #include "Terrain.h"
 #include <algorithm>
@@ -18,8 +18,6 @@ void robot::ajouterObservateur(observateur* obs) {
     d_observateurs.push_back(obs);
 }
 
-
-
 void robot::supprimerObservateur(observateur* obs) {
     auto it = std::remove(d_observateurs.begin(), d_observateurs.end(), obs);
     if (it != d_observateurs.end()) {
@@ -28,10 +26,12 @@ void robot::supprimerObservateur(observateur* obs) {
 }
 
 
-void robot::notifierObservateurs() {
-    for (auto* obs : d_observateurs) {
+void robot::notifierObservateurs()
+{
+    for (auto* obs : d_observateurs)
+        {
         obs->miseAJour(d_position, d_direction);
-    }
+        }
 }
 
 void robot::avancerUneCase() {
@@ -87,3 +87,53 @@ bool robot::detecterObstacle(const terrain& terrain) const {
     }
     return false;
 }
+
+void robot::appliquerMainDroite(terrain& t) {
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        t.obtenirCellule(d_position).rendreVide(); // Libérer la cellule actuelle
+        tournerDroite();
+        t.afficherTerrain(d_position); // Affichage
+
+        if (!detecterObstacle(t)) {
+            avancerUneCase();
+        } else {
+            tournerGauche();
+            t.afficherTerrain(d_position); // Affichage
+            if (!detecterObstacle(t)) {
+                avancerUneCase();
+            } else {
+                tournerGauche();
+                t.afficherTerrain(d_position); // Affichage
+            }
+        }
+        t.obtenirCellule(d_position).rendreRobot(); // Placer le robot
+        t.afficherTerrain(d_position); // Affichage en temps réel
+    }
+    std::cout << "Arrivé à la destination avec l'algorithme de la main droite." << std::endl;
+}
+
+void robot::appliquerPledge(terrain& t) {
+    int compteurRotation = 0;
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        t.obtenirCellule(d_position).rendreVide(); // Libérer la cellule actuelle
+        if (!detecterObstacle(t)) {
+            avancerUneCase();
+        } else {
+            tournerDroite();
+            t.afficherTerrain(d_position); // Affichage après rotation
+            compteurRotation--;
+        }
+
+        if (compteurRotation == 0 && !detecterObstacle(t)) {
+            avancerUneCase();
+        } else {
+            tournerGauche();
+            t.afficherTerrain(d_position); // Affichage après rotation
+            compteurRotation++;
+        }
+        t.obtenirCellule(d_position).rendreRobot(); // Placer le robot
+        t.afficherTerrain(d_position); // Affichage en temps réel
+    }
+    std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
+}
+

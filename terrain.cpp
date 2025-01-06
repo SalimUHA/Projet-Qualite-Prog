@@ -88,7 +88,7 @@ void terrain::definirArrivee(const position &pos)
   d_grille[pos.y()][pos.x()].rendreArrivee();
 }
 
-void terrain::afficherTerrain() const
+/*void terrain::afficherTerrain() const
       {
     for (int i = 0; i < d_hauteur; ++i)
   {
@@ -99,6 +99,21 @@ void terrain::afficherTerrain() const
       std::cout << std::endl;
     }
   }
+*/
+
+void terrain::afficherTerrain(const position& robotPos) const {
+    for (int y = 0; y < d_hauteur; ++y) {
+        for (int x = 0; x < d_largeur; ++x) {
+            if (robotPos.x() == x && robotPos.y() == y) {
+                std::cout << 'R'; // Représentation du robot
+            } else {
+                d_grille[y][x].afficherCellule();
+            }
+        }
+        std::cout << '\n';
+    }
+    std::cout << '\n';
+}
 
 void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
 {
@@ -161,6 +176,9 @@ void terrain::chargerDepuisFichier(const std::string& nomFichier)
             }
 
             d_grille[i][j].initialiserDepuisCaractere(type);
+            if (type == 'R') {
+                d_robotPos = {j, i};
+            }
         }
     }
 

@@ -20,6 +20,8 @@ public:
     void affiche(std::ostream &ost) const;
     void lit(std::istream &ist);
 
+    bool operator!=(const position& other) const;
+
     friend position operator+(const position &p1, const position &p2);
     position &operator+=(const position &p);
 

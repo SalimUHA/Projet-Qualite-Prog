@@ -25,6 +25,8 @@ public:
     void notifierObservateurs();
 
     bool detecterObstacle(const terrain& terrain) const;
+    void appliquerMainDroite(terrain& t);
+    void appliquerPledge(terrain& t);
 
 
 private:
