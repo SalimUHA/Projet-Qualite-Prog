@@ -105,7 +105,7 @@ void terrain::afficherTerrain(const position& robotPos) const {
     for (int y = 0; y < d_hauteur; ++y) {
         for (int x = 0; x < d_largeur; ++x) {
             if (robotPos.x() == x && robotPos.y() == y) {
-                std::cout << 'R'; // Représentation du robot
+                std::cout << 'R'; // Reprï¿½sentation du robot
             } else {
                 d_grille[y][x].afficherCellule();
             }
@@ -183,4 +183,9 @@ void terrain::chargerDepuisFichier(const std::string& nomFichier)
     }
 
     fichier.close();
+}
+
+bool terrain::estLibre(int x, int y) const {
+
+    return x >= 0 && x < d_grille.size() && y >= 0 && y < d_grille[0].size() && d_grille[x][y] == ' ';
 }
