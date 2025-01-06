@@ -40,6 +40,7 @@ void testerChargementDepuisFichier()
     terrain.afficherTerrain();
 }
 
+/*
 void testObservateurStatistiques()
 {
     position startPos(0, 0);
@@ -55,6 +56,7 @@ void testObservateurStatistiques()
     r.avancerUneCase();    // Le robot avance encore
     std::cout << "Nombre total de case parcourus: "<< statsObs.obtenirNombreCasesParcourues()<< std::endl;
 }
+
 
 void testRobot()
 {
@@ -91,13 +93,47 @@ void testRobot()
 
     std::cout << "Nombre total de case parcourus: "<< stats.obtenirNombreCasesParcourues()<< std::endl;
 }
+*/
 
+void testAlgorithmeMainDroite()
+{
+    std::string nomFichier = "terraintest.txt";
+    terrain t(0, 0);
+    t.chargerDepuisFichier(nomFichier);
+
+
+    // Création du robot
+    position depart = t.obtenirPositionDepart();
+    robot monRobot(depart);
+
+    // Lancer l'algorithme de la main droite
+    std::cout << "\nApplication de l'algorithme de la main droite :\n";
+    monRobot.appliquerMainDroite(t);
+}
+
+void testAlgorithmePledge()
+{
+    std::string nomFichier = "terraintest.txt";
+    terrain t(0, 0);
+    t.chargerDepuisFichier(nomFichier);
+
+
+    // Création du robot
+    position depart = t.obtenirPositionDepart();
+    robot monRobot(depart);
+
+    // Lancer l'algorithme de la main droite
+    std::cout << "\nApplication de l'algorithme de la main droite :\n";
+    monRobot.appliquerPledge(t);
+}
 int main()
 {
-    testRobot();
+    //testRobot();
     //testSaveTerrain();
     //testerChargementDepuisFichier();
     //testObservateurStatistiques();
+    //testAlgorithmeMainDroite();
+    testAlgorithmePledge();
     return 0;
 }
 

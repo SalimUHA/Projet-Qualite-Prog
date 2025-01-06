@@ -24,7 +24,7 @@ public:
   void definirArrivee(const position& pos);
   void chargerDepuisFichier(const std::string &nomFichier);
   void sauvegarderDansFichier(const std::string &nomFichier) const;
-  //void afficherTerrain() const;
+  void afficherTerrain() const;
   void afficherTerrain(const position& robotPos) const;
 private:
   int d_largeur, d_hauteur;

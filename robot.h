@@ -23,8 +23,10 @@ public:
     void ajouterObservateur(observateur* obs);
     void supprimerObservateur(observateur* obs);
     void notifierObservateurs();
-
+    position calculerPositionRelative(const std::string& directionRelative) const;
     bool detecterObstacle(const terrain& terrain) const;
+    bool detecterObstacleADroite(const terrain& t) const;
+    bool detecterObstacleAGauche(const terrain& t) const;
     void appliquerMainDroite(terrain& t);
     void appliquerPledge(terrain& t);
 

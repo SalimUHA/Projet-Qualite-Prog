@@ -23,6 +23,7 @@ void cellule::rendreMur()
 
 void cellule::rendreVide()
 {
+    if(d_type!= CELLULE_MUR)
   d_type = CELLULE_VIDE;
 }
 
@@ -38,6 +39,7 @@ void cellule::rendreArrivee()
 
 void cellule::rendreRobot()
 {
+    if(d_type!=CELLULE_MUR)
     d_type = CELLULE_ROBOT;
 }
 bool cellule::estMur() const{

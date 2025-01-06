@@ -88,7 +88,7 @@ void terrain::definirArrivee(const position &pos)
   d_grille[pos.y()][pos.x()].rendreArrivee();
 }
 
-/*void terrain::afficherTerrain() const
+void terrain::afficherTerrain() const
       {
     for (int i = 0; i < d_hauteur; ++i)
   {
@@ -99,7 +99,7 @@ void terrain::definirArrivee(const position &pos)
       std::cout << std::endl;
     }
   }
-*/
+
 
 void terrain::afficherTerrain(const position& robotPos) const {
     for (int y = 0; y < d_hauteur; ++y) {
