@@ -39,7 +39,7 @@ void cellule::rendreArrivee()
 
 void cellule::rendreRobot()
 {
-    if(d_type!=CELLULE_MUR)
+    //if(d_type!=CELLULE_MUR)
     d_type = CELLULE_ROBOT;
 }
 bool cellule::estMur() const{
@@ -85,7 +85,7 @@ char cellule::obtenirCaractere() const
 }
 void cellule::afficherCellule() const
 {
-        std::cout << obtenirCaractere();
+    std::cout << obtenirCaractere();
 }
 
 cellule& cellule::operator=(const cellule& c2)

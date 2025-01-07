@@ -26,6 +26,10 @@ public:
   void sauvegarderDansFichier(const std::string &nomFichier) const;
   void afficherTerrain() const;
   void afficherTerrain(const position& robotPos) const;
+  bool estLibre(int x, int y) const;
+  cellule getCase(int x, int y) const;
+
+
 private:
   int d_largeur, d_hauteur;
   std::vector<std::vector<cellule>> d_grille;

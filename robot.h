@@ -16,7 +16,7 @@ public:
 	robot(const position& startPos);
     position obtenirPosition() const;
     void deplacer(const position& nouvellePos);
-	void avancerUneCase();
+	void avancerUneCase(terrain &t);
 	void tournerDroite();
 	void tournerGauche();
 

@@ -2,138 +2,94 @@
 // Created by salim on 12/12/2024.
 //
 #include <iostream>
-#include "Terrain.h"
+#include <fstream>
+#include <string>
+#include <windows.h> // Pour les caractères unicode
+#include "terrain.h"
 #include "robot.h"
-#include "observateurConsole.h"
-#include "observateurStatistiques.h"
 
-void testTerrain(){
-    terrain terrain(5, 5);
-
-    terrain.definirMur(position(0, 0));
-    terrain.definirMur(position(1, 0));
-    terrain.definirDepart(position(1, 1));
-    terrain.definirArrivee(position(3, 3));
-
-    terrain.afficherTerrain();
+void afficherMenu() {
+    std::cout << "=== Sortie de labyrinthe ===" << std::endl;
+    std::cout << "1. Lire un terrain depuis un fichier" << std::endl;
+    std::cout << "2. Choisir un algorithme de sortie" << std::endl;
+    std::cout << "3. Choisir un mode d'affichage" << std::endl;
+    std::cout << "4. Faire sortir le robot" << std::endl;
+    std::cout << "5. Quitter" << std::endl;
 }
 
+int main() {
+    SetConsoleOutputCP(65001); // Permet l'affichage des caractères unicode
+    terrain t{0, 0};
 
-void testSaveTerrain()
-{
-    terrain terrain(5, 5);
-    terrain.definirMur(position(0, 0));
-    terrain.definirMur(position(1, 0));
-    terrain.definirDepart(position(1, 1));
-    terrain.definirArrivee(position(3, 3));
-    terrain.sauvegarderDansFichier("terrain.txt");
-    terrain.afficherTerrain();
-    std::cout << "Terrain sauvegarde dans le fichier 'terrain.txt'." << std::endl;
-}
+    int choix = 0;
+    std::string nomFichier;
+    int algorithmeChoisi = 0;
+    int modeAffichage = 1;
 
-void testerChargementDepuisFichier()
-{
-    std::string nomFichier = "terraintest.txt";
-    terrain terrain(0, 0);
-    terrain.chargerDepuisFichier(nomFichier);
-    std::cout << "Terrain depuis le fichier '" << nomFichier << "' :\n";
-    terrain.afficherTerrain();
-}
+    while (choix != 5) {
+        afficherMenu();
+        std::cout << "Choisissez une option : ";
+        std::cin >> choix;
 
-/*
-void testObservateurStatistiques()
-{
-    position startPos(0, 0);
-    robot r(startPos);
-    observateurStatistiques statsObs(startPos);
-    r.ajouterObservateur(&statsObs);
+        switch (choix) {
+            case 1: {
+                std::cout << "Entrez le nom du fichier terrain : ";
+                std::cin >> nomFichier;
+                t.chargerDepuisFichier(nomFichier);
+                t.afficherTerrain(); // Affichage initial du terrain
 
-    std::cout << "Deplacements du robot :" << std::endl;
-    r.avancerUneCase();    // Le robot avance
-    r.tournerDroite();     // Le robot tourne à droite
-    r.avancerUneCase();    // Le robot avance encore
-    r.tournerGauche();     // Le robot tourne à gauche
-    r.avancerUneCase();    // Le robot avance encore
-    std::cout << "Nombre total de case parcourus: "<< statsObs.obtenirNombreCasesParcourues()<< std::endl;
-}
+                break;
+            }
+            case 2: {
+                std::cout << "Choisissez l'algorithme :\n";
+                std::cout << "1. Main Droite\n";
+                std::cout << "2. Pledge\n";
+                std::cin >> algorithmeChoisi;
+                break;
+            }
+            case 3: {
+                std::cout << "Choisissez le mode d'affichage :\n";
+                std::cout << "1. Mode texte simple\n";
+                std::cout << "2. Mode texte amélioré 1\n";
+                std::cout << "3. Mode texte amélioré 2\n";
+                std::cin >> modeAffichage;
+                break;
+            }
+            case 4: {
+                // Configure l'affichage selon le mode choisi
+                /*if (modeAffichage == 1) {
+                    t.setModeAffichageSimple();
+                } else if (modeAffichage == 2) {
+                    t.setModeAffichageAmeliore1();
+                } else if (modeAffichage == 3) {
+                    t.setModeAffichageAmeliore2();
+                }
+                */
+                // Exécution de l'algorithme choisi
+                if (algorithmeChoisi == 1) {
+                    position depart = t.obtenirPositionDepart();
+                    robot r{depart};
+                    r.appliquerMainDroite(t);
+                } else if (algorithmeChoisi == 2) {
+                    position depart = t.obtenirPositionDepart();
+                    robot r{depart};
+                    r.appliquerPledge(t);
+                } else {
+                    std::cout << "Algorithme non choisi ou invalide !\n";
+                }
 
-
-void testRobot()
-{
-    terrain terrain(5, 5);
-
-    terrain.definirMur(position(0, 0));
-    terrain.definirMur(position(1, 0));
-    terrain.definirDepart(position(1, 1));
-    terrain.definirArrivee(position(3, 3));
-
-    terrain.afficherTerrain();
-    robot robot(position(0,0));
-
-    observateurConsole observateurConsole;
-    observateurStatistiques stats(position(0,0));
-    robot.ajouterObservateur(&observateurConsole);
-    robot.ajouterObservateur(&stats);
-
-
-    std::cout << "\nDéplacement du robot :" << std::endl;
-
-    robot.avancerUneCase();
-    robot.tournerDroite();
-    robot.avancerUneCase();
-    robot.tournerDroite();
-    robot.avancerUneCase();
-
-
-    if (robot.detecterObstacle(terrain)) {
-        std::cout << "Obstacle détecté ! Le robot ne peut pas avancer." << std::endl;
-    } else {
-        robot.avancerUneCase();
+                // Affiche le nombre de cases parcourues
+                //std::cout << "Nombre de cases parcourues : " << r.getNombreCasesParcourues() << std::endl;
+                break;
+            }
+            case 5:
+                std::cout << "Au revoir !" << std::endl;
+                break;
+            default:
+                std::cout << "Option invalide !" << std::endl;
+        }
     }
 
-    std::cout << "Nombre total de case parcourus: "<< stats.obtenirNombreCasesParcourues()<< std::endl;
-}
-*/
-
-void testAlgorithmeMainDroite()
-{
-    std::string nomFichier = "terraintest.txt";
-    terrain t(0, 0);
-    t.chargerDepuisFichier(nomFichier);
-
-
-    // Création du robot
-    position depart = t.obtenirPositionDepart();
-    robot monRobot(depart);
-
-    // Lancer l'algorithme de la main droite
-    std::cout << "\nApplication de l'algorithme de la main droite :\n";
-    monRobot.appliquerMainDroite(t);
-}
-
-void testAlgorithmePledge()
-{
-    std::string nomFichier = "terraintest.txt";
-    terrain t(0, 0);
-    t.chargerDepuisFichier(nomFichier);
-
-
-    // Création du robot
-    position depart = t.obtenirPositionDepart();
-    robot monRobot(depart);
-
-    // Lancer l'algorithme de la main droite
-    std::cout << "\nApplication de l'algorithme de la main droite :\n";
-    monRobot.appliquerPledge(t);
-}
-int main()
-{
-    //testRobot();
-    //testSaveTerrain();
-    //testerChargementDepuisFichier();
-    //testObservateurStatistiques();
-    //testAlgorithmeMainDroite();
-    testAlgorithmePledge();
     return 0;
 }
 
