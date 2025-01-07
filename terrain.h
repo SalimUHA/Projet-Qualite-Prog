@@ -27,7 +27,7 @@ public:
   void afficherTerrain() const;
   void afficherTerrain(const position& robotPos) const;
   bool estLibre(int x, int y) const;
-  char getCase(int x, int y) const;
+  cellule getCase(int x, int y) const;
 
 
 private:

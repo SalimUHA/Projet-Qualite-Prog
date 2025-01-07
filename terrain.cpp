@@ -185,13 +185,20 @@ void terrain::chargerDepuisFichier(const std::string& nomFichier)
     fichier.close();
 }
 
-bool terrain::estLibre(int x, int y) const
+/*bool terrain::estLibre(int x, int y) const
 {
 
-    return x >= 0 && x < d_grille.size() && y >= 0 && y < d_grille[0].size() && d_grille[x][y] == ' ';
+    return x >=0 && x < d_grille.size() && y >=0 && y < d_grille[0].size() && d_grille[x][y].estVide();
+}
+*/
+bool terrain::estLibre(int x, int y) const {
+    if (x < 0 || x >= d_largeur || y < 0 || y >= d_hauteur) {
+        return false; // Hors limites
+    }
+    return !d_grille[y][x].estMur() && !d_grille[y][x].estDepart(); // Vérifie que la cellule est vide
 }
 
-char terrain::getCase(int x, int y) const
+cellule terrain::getCase(int x, int y) const
 {
 
     return d_grille[x][y];

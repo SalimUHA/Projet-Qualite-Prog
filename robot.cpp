@@ -33,7 +33,7 @@ void robot::notifierObservateurs()
         obs->miseAJour(d_position, d_direction);
         }
 }
-
+/*
 void robot::avancerUneCase() {
     if (d_direction == "NORD") {
         d_position.deplaceDe(0, -1);
@@ -46,6 +46,13 @@ void robot::avancerUneCase() {
     }
 
     notifierObservateurs();
+}
+*/
+void robot::avancerUneCase(terrain& t) {
+        position prochainePosition = calculerPositionRelative("DEVANT");
+        d_position = prochainePosition; // Met à jour la position
+        notifierObservateurs();
+
 }
 
 void robot::tournerDroite() {
@@ -132,14 +139,36 @@ position robot::calculerPositionRelative(const std::string& directionRelative) c
 }
 bool robot::detecterObstacle(const terrain& t) const
 {
-    position prochainePosition = calculerPositionRelative("DEVANT");
-    return t.obtenirCellule(prochainePosition).estMur();
+    position devant = calculerPositionRelative("DEVANT");
+    //return t.obtenirCellule(prochainePosition).estMur();
+    return devant.x() >= 0 && devant.x() < t.obtenirLargeur() &&
+                              devant.y() >= 0 && devant.y() < t.obtenirHauteur() &&
+                              t.estLibre(devant.x(), devant.y());
+
 }
 
+/*
+bool robot::dete
+cterObstacle(const terrain& t) const {
+    position prochainePosition = calculerPositionRelative("DEVANT");
+
+    // Vérifie si la position est hors limites
+    if (prochainePosition.x() < 0 || prochainePosition.x() >= t.obtenirLargeur() ||
+        prochainePosition.y() < 0 || prochainePosition.y() >= t.obtenirHauteur()) {
+        return true; // Considérer hors limites comme obstacle
+    }
+
+    // Vérifie si la cellule est un mur
+    return t.obtenirCellule(prochainePosition).estMur();
+}
+*/
 bool robot::detecterObstacleADroite(const terrain& t) const
 {
-    position prochainePosition = calculerPositionRelative("DROITE");
-    return t.obtenirCellule(prochainePosition).estMur();
+    position droite = calculerPositionRelative("DROITE");
+    //return t.obtenirCellule(prochainePosition).estMur();
+     return droite.x() >= 0 && droite.x() < t.obtenirLargeur() &&
+                              droite.y() >= 0 && droite.y() < t.obtenirHauteur() &&
+                              t.estLibre(droite.x(), droite.y());
 }
 
 bool robot::detecterObstacleAGauche(const terrain& t) const
@@ -148,90 +177,251 @@ bool robot::detecterObstacleAGauche(const terrain& t) const
     return t.obtenirCellule(prochainePosition).estMur();
 }
 
-void robot::appliquerMainDroite(terrain& t)
-{
+
+void robot::appliquerMainDroite(terrain& t) {
     while (!t.obtenirCellule(d_position).estArrivee()) {
         std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
         _getch();
 
-        if (!t.obtenirCellule(d_position).estMur())
-            {
-            t.obtenirCellule(d_position).rendreVide();
+       /* // Positions relatives
+        position droite = calculerPositionRelative("DROITE");
+        position devant = calculerPositionRelative("DEVANT");
+
+        // Détection des obstacles
+        bool droiteEstLibre = droite.x() >= 0 && droite.x() < t.obtenirLargeur() &&
+                              droite.y() >= 0 && droite.y() < t.obtenirHauteur() &&
+                              t.estLibre(droite.x(), droite.y());
+
+        bool devantEstLibre = devant.x() >= 0 && devant.x() < t.obtenirLargeur() &&
+                              devant.y() >= 0 && devant.y() < t.obtenirHauteur() &&
+                              t.estLibre(devant.x(), devant.y());
+        */
+        // Logique de déplacement
+        if (detecterObstacleADroite(t)) {
+            tournerDroite();
+            avancerUneCase(t);
+        } else if (detecterObstacle(t)) {
+            avancerUneCase(t);
+        } else {
+            tournerGauche();
         }
 
-
-        t.afficherTerrain(d_position);
-
-        if (!detecterObstacle(t))
-            {
-            avancerUneCase();
-            }
-        else
-            {
-            tournerGauche();
-            t.afficherTerrain(d_position);
-            if (!detecterObstacle(t))
-                {
-                avancerUneCase();
-                }
-            else
-                {
-                    tournerGauche();
-                    t.afficherTerrain(d_position);
-                }
-            }
-
+        // Mise à jour et affichage du terrain
         if (!t.obtenirCellule(d_position).estMur()) {
             t.obtenirCellule(d_position).rendreRobot();
         }
 
         t.afficherTerrain(d_position);
     }
-    std::cout << "Arrive à la destination avec l'algorithme de la main droite." << std::endl;
+
+    std::cout << "Arrivé à la destination avec l'algorithme de la Main Droite." << std::endl;
 }
 
-void robot::appliquerPledge(terrain& t)
-{
+
+/*
+void robot::appliquerPledge(terrain& t) {
     int compteurRotation = 0;
 
-    while (!t.obtenirCellule(d_position).estArrivee())
-    {
-        if (compteurRotation == 0)
-        {
-            while (!detecterObstacle(t))
-            {
-                std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
-                _getch(); // Attendre une entrée de l'utilisateur pour avancer
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
+        _getch(); // Attente de l'utilisateur avant chaque étape
+
+        if (compteurRotation == 0) {
+            // Avance tant qu'il n'y a pas d'obstacle
+            if (!detecterObstacle(t)) {
                 avancerUneCase();
                 t.afficherTerrain(d_position);
+            } else {
+                // Rencontre un obstacle, tourne à droite et ajuste le compteur
+                tournerDroite();
+                compteurRotation--;
             }
+        } else {
+            // Suivre le mur si compteurRotation != 0
+            if (!detecterObstacleADroite(t)) {
+                // Pas d'obstacle à droite, tourner à droite et avancer
+                tournerDroite();
+                compteurRotation--;
+                t.afficherTerrain(d_position); // Affichage après rotation
+            } else if (!detecterObstacle(t)) {
+                // Pas d'obstacle devant, avancer tout droit
+                avancerUneCase();
+                t.afficherTerrain(d_position); // Affichage après déplacement
+            } else {
+                // Obstacle devant, tourner à gauche
+                tournerGauche();
+                compteurRotation++;
+                t.afficherTerrain(d_position); // Affichage après rotation
+            }
+        }
+
+        // Affiche les informations de débogage
+        std::cout << "Position: (" << d_position.x() << ", " << d_position.y() << "), Direction: "
+                  << d_direction << ", CompteurRotation: " << compteurRotation << std::endl;
+    }
+
+    std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
+}
+*/
+/*
+void robot::appliquerPledge(terrain& t) {
+    int compteurRotation = 0;
+
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        // Si le compteur de rotation est 0, on avance tout droit
+        if (compteurRotation == 0) {
+            while (!detecterObstacle(t)) {
+                avancerUneCase();
+                t.afficherTerrain(d_position);
+
+                // Vérifie après chaque mouvement si on est arrivé
+                if (t.obtenirCellule(d_position).estArrivee()) {
+                    std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
+                    return;
+                }
+            }
+            // Rencontre un mur, tourne à droite et ajuste le compteur
             tournerDroite();
             compteurRotation--;
-        }
-        else
-        {
-            if (!detecterObstacleADroite(t))
-            {
+        } else {
+            // Suivre le mur si le compteur de rotation n'est pas 0
+            if (!detecterObstacleADroite(t)) {
+                // Tourne à droite, ajuste le compteur, et avance
                 tournerDroite();
                 compteurRotation--;
                 avancerUneCase();
-            }
-            else if (!detecterObstacle(t))
-            {
+            } else if (!detecterObstacle(t)) {
+                // Pas d'obstacle devant, avance
                 avancerUneCase();
-            }
-            else
-            {
+            } else {
+                // Rencontre un mur, tourne à gauche et ajuste le compteur
                 tournerGauche();
                 compteurRotation++;
             }
         }
+
+        // Affiche l'état actuel du terrain
         t.afficherTerrain(d_position);
     }
+
     std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
 }
+*/
+/*
+void robot::appliquerPledge(terrain& t) {
+    int compteurRotation = 0; // Compteur pour suivre les rotations
 
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
+        _getch();
 
+        // Positions relatives
+        position droite = calculerPositionRelative("DROITE");
+        position devant = calculerPositionRelative("DEVANT");
 
+        // Détection des obstacles
+        bool droiteEstLibre = droite.x() >= 0 && droite.x() < t.obtenirLargeur() &&
+                              droite.y() >= 0 && droite.y() < t.obtenirHauteur() &&
+                              t.estLibre(droite.x(), droite.y());
 
+        bool devantEstLibre = devant.x() >= 0 && devant.x() < t.obtenirLargeur() &&
+                              devant.y() >= 0 && devant.y() < t.obtenirHauteur() &&
+                              t.estLibre(devant.x(), devant.y());
 
+        // Logique de déplacement
+        if (compteurRotation == 0) {
+            // Si le compteur est à 0, avancer tout droit si possible
+            if (devantEstLibre) {
+                avancerUneCase(t);
+            } else {
+                tournerDroite();
+                compteurRotation--;
+            }
+        } else {
+            // Suivre le mur
+            if (droiteEstLibre) {
+                tournerDroite();
+                compteurRotation--;
+                avancerUneCase(t);
+            } else if (devantEstLibre) {
+                avancerUneCase(t);
+            } else {
+                tournerGauche();
+                compteurRotation++;
+            }
+        }
+
+        // Mise à jour et affichage du terrain
+        if (!t.obtenirCellule(d_position).estMur()) {
+            t.obtenirCellule(d_position).rendreRobot();
+        }
+
+        t.afficherTerrain(d_position);
+
+        // Afficher les informations pour le débogage
+        std::cout << "Position actuelle : (" << d_position.x() << ", " << d_position.y() << ")\n";
+        std::cout << "Direction actuelle : " << d_direction << "\n";
+        std::cout << "CompteurRotation : " << compteurRotation << "\n";
+    }
+
+    std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
+}*/
+
+void robot::appliquerPledge(terrain& t) {
+    int compteurRotation = 0; // Compteur des changements de direction
+
+    while (!t.obtenirCellule(d_position).estArrivee()) {
+        std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
+        _getch();
+
+        // Positions relatives
+        position droite = calculerPositionRelative("DROITE");
+        position devant = calculerPositionRelative("DEVANT");
+
+        // Détection des obstacles
+        bool droiteEstLibre = droite.x() >= 0 && droite.x() < t.obtenirLargeur() &&
+                              droite.y() >= 0 && droite.y() < t.obtenirHauteur() &&
+                              t.estLibre(droite.x(), droite.y());
+
+        bool devantEstLibre = devant.x() >= 0 && devant.x() < t.obtenirLargeur() &&
+                              devant.y() >= 0 && devant.y() < t.obtenirHauteur() &&
+                              t.estLibre(devant.x(), devant.y());
+
+        // Instruction 1 : Avancer tout droit tant que possible
+        if (compteurRotation == 0) {
+            if (devantEstLibre) {
+                avancerUneCase(t);
+            } else {
+                tournerDroite();
+                compteurRotation--; // Mur rencontré, commencer à longer le mur
+            }
+        }
+        // Instruction 2 : Longer le mur
+        else {
+            if (droiteEstLibre) {
+                tournerDroite();
+                compteurRotation--;
+                avancerUneCase(t);
+            } else if (devantEstLibre) {
+                avancerUneCase(t);
+            } else {
+                tournerGauche();
+                compteurRotation++;
+            }
+        }
+
+        // Mise à jour et affichage du terrain
+        if (!t.obtenirCellule(d_position).estMur()) {
+            t.obtenirCellule(d_position).rendreRobot();
+        }
+
+        t.afficherTerrain(d_position);
+
+        // Afficher les informations de débogage
+        std::cout << "Position actuelle : (" << d_position.x() << ", " << d_position.y() << ")\n";
+        std::cout << "Direction actuelle : " << d_direction << "\n";
+        std::cout << "CompteurRotation : " << compteurRotation << "\n";
+    }
+
+    std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
+}

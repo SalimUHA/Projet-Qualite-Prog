@@ -13,7 +13,7 @@ using namespace std;
 #include "position.h"
 #include "terrain.h"
 #include "celulle.h"
-#include "observateur.h"
+#include "observateurConsole.h"
 
 TEST_CASE("Tests de la classe robot") {
     terrain t{5, 5};
@@ -74,8 +74,8 @@ TEST_CASE("Tests de la classe robot") {
 
     SUBCASE("Gestion des observateurs") {
         robot r{position{0, 0}};
-        observateur obs1;
-        observateur obs2;
+        observateurConsole obs1;
+        observateurConsole obs2;
 
         SUBCASE("Ajout et notification des observateurs") {
             r.ajouterObservateur(&obs1);
