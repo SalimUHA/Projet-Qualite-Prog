@@ -1,40 +1,32 @@
 #include "celulle.h"
 using namespace std;
 
-cellule::cellule(int type): d_type{type}
-{}
+cellule::cellule(int type): d_type{type} {}
 
-cellule::cellule(): d_type{CELLULE_VIDE}
-{}
+cellule::cellule(): d_type{CELLULE_VIDE} {}
 
-int cellule::obtenirType() const
-{
+int cellule::obtenirType() const {
   return d_type;
 }
 
-void cellule::rendreMur()
-{
+void cellule::rendreMur() {
   d_type = CELLULE_MUR;
 }
 
-void cellule::rendreVide()
-{
+void cellule::rendreVide() {
     if(d_type != CELLULE_MUR)
         d_type = CELLULE_VIDE;
 }
 
-void cellule::rendreDepart()
-{
+void cellule::rendreDepart() {
   d_type = CELLULE_DEPART;
 }
 
-void cellule::rendreArrivee()
-{
+void cellule::rendreArrivee() {
   d_type = CELLULE_ARRIVEE;
 }
 
-void cellule::rendreRobot()
-{
+void cellule::rendreRobot() {
     d_type = CELLULE_ROBOT;
 }
 
@@ -58,63 +50,59 @@ bool cellule::estRobot() const {
     return d_type == CELLULE_ROBOT;
 }
 
-char cellule::obtenirCaractere(int modeAffichage) const
-{
+char cellule::obtenirCaractere(int modeAffichage) const {
     if (modeAffichage == 1) {
         if (estMur()) {
-            return 'X'; // Mur
+            return 'X';
         } else if (estDepart()) {
-            return 'E'; // Départ
+            return 'E';
         } else if (estArrivee()) {
-            return 'S'; // Arrivée
+            return 'S';
         } else if (estRobot()) {
-            return 'R'; // Robot
+            return 'R';
         } else {
-            return '.'; // Case vide
+            return '.';
         }
     } else if (modeAffichage == 2) {
         if (estMur()) {
-            return '|'; // Mur en ASCII
+            return '|';
         } else if (estDepart()) {
-            return '#'; // Départ
+            return '#';
         } else if (estArrivee()) {
-            return '#'; // Arrivée
+            return '#';
         } else if (estRobot()) {
-            return 'R'; // Robot
+            return 'R';
         } else {
-            return '.'; // Case vide
+            return '.';
         }
     } else if (modeAffichage == 3) {
         if (estMur()) {
-            return '\u2588'; // Mur en Unicode (caractère plein)
+            return '\u2588';
         } else if (estDepart()) {
-            return '\u25B2'; // Départ (triangle vers le haut)
+            return '\u25B2';
         } else if (estArrivee()) {
-            return '\u25A0'; // Arrivée (carré plein)
+            return '\u25A0';
         } else if (estRobot()) {
-            return '\u25CF'; // Robot (cercle plein)
+            return '\u25CF';
         } else {
-            return '\u25CB'; // Case vide (cercle vide)
+            return '\u25CB';
         }
     }
-    return '?'; // Par défaut, caractère inconnu
+    return '?';
 }
 
-void cellule::afficherCellule(int modeAffichage) const
-{
+void cellule::afficherCellule(int modeAffichage) const {
     std::cout << obtenirCaractere(modeAffichage);
 }
 
-cellule& cellule::operator=(const cellule& c2)
-{
+cellule& cellule::operator=(const cellule& c2) {
     if (this != &c2) {
         d_type = c2.d_type;
     }
     return *this;
 }
 
-void cellule::initialiserDepuisCaractere(char c)
-{
+void cellule::initialiserDepuisCaractere(char c) {
     if (c == 'X') {
         rendreMur();
     } else if (c == 'E') {
