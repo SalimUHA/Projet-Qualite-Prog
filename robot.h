@@ -10,6 +10,7 @@
 #include "Celulle.h"
 #include "Observateur.h"
 #include "Terrain.h"
+#include "observateurStatistiques.h"
 
 class robot {
 public:

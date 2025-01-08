@@ -215,6 +215,7 @@ void robot::appliquerMainDroite(terrain& t) {
     }
 
     std::cout << "Arrivé à la destination avec l'algorithme de la Main Droite." << std::endl;
+
 }
 
 
