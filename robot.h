@@ -28,8 +28,8 @@ public:
     bool detecterObstacle(const terrain& terrain) const;
     bool detecterObstacleADroite(const terrain& t) const;
     bool detecterObstacleAGauche(const terrain& t) const;
-    void appliquerMainDroite(terrain& t);
-    void appliquerPledge(terrain& t);
+    void appliquerMainDroite(terrain& t,int modeAffichage);
+    void appliquerPledge(terrain& t,int modeAffichage);
 
 
 private:

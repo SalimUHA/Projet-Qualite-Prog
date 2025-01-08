@@ -1,44 +1,50 @@
-//
-// Created by said on 11/12/2024.
-//
-
 #ifndef TERRAIN_H
 #define TERRAIN_H
-#include <iostream>
+
 #include <vector>
+#include <string>
+#include <iostream>
 #include <fstream>
-#include "position.h"
 #include "celulle.h"
+#include "position.h"
 
 class terrain {
-public:
-  terrain(int largeur, int hauteur); // Constructeur
-  void initialiserTerrain(int largeur, int hauteur);
-  int obtenirLargeur() const;
-  int obtenirHauteur() const;
-  cellule obtenirCellule(const position &pos) const;
-  position obtenirPositionDepart() const;
-  position obtenirPositionArrivee() const;
-  void definirMur(const position& pos);
-  void definirDepart(const position& pos);
-  void definirArrivee(const position& pos);
-  void chargerDepuisFichier(const std::string &nomFichier);
-  void sauvegarderDansFichier(const std::string &nomFichier) const;
-  void afficherTerrain() const;
-  void afficherTerrain(const position& robotPos, const std::string& robotDirection) const;
-  bool estLibre(int x, int y) const;
-  cellule getCase(int x, int y) const;
-
-
 private:
-  int d_largeur, d_hauteur;
-  std::vector<std::vector<cellule>> d_grille;
-  position d_depart;
-  position d_arrive;
-  position d_robotPos;
+    int d_largeur;
+    int d_hauteur;
+    std::vector<std::vector<cellule>> d_grille;
+    position d_robotPos;
 
+    void initialiserTerrain(int largeur, int hauteur);
+
+public:
+    // Constructeur
+    terrain(int largeur = 0, int hauteur = 0);
+
+    // Getters
+    int obtenirLargeur() const;
+    int obtenirHauteur() const;
+    cellule obtenirCellule(const position &pos) const;
+    position obtenirPositionDepart() const;
+    position obtenirPositionArrivee() const;
+
+    // Modifications du terrain
+    void definirMur(const position &pos);
+    void definirDepart(const position &pos);
+    void definirArrivee(const position &pos);
+
+    // Affichage du terrain
+    void afficherTerrain(int modeAffichage) const;
+    void afficherTerrain(const position &robotPos, const std::string &robotDirection,int modeAffichage) const;
+
+    // Sauvegarde et chargement
+    void chargerDepuisFichier(const std::string &nomFichier);
+
+    // Vérification des cellules
+    bool estLibre(int x, int y) const;
+
+    // Accès aux cases
+    cellule getCase(int x, int y) const;
 };
 
-
-
-#endif //TERRAIN_H
+#endif // TERRAIN_H

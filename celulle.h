@@ -28,8 +28,8 @@ public:
     bool estArrivee() const;
     bool estRobot() const;
     void initialiserDepuisCaractere(char c);
-    char obtenirCaractere() const;
-    void afficherCellule() const;
+    char obtenirCaractere(int modeAffichage) const;
+    void afficherCellule(int modeAffichage) const;
     cellule& operator=(const cellule &c2);
 
 private:

@@ -4,13 +4,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <windows.h> // Pour les caractères unicode
+#include <windows.h> // Pour les caractÃ¨res unicode
 #include "labyrinthe.h"
 
 
 int main()
 {
     labyrinthe jeu;
+    SetConsoleOutputCP(65001);
     jeu.afficherMenu();
     return 0;
 }

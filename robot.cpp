@@ -178,7 +178,7 @@ bool robot::detecterObstacleAGauche(const terrain& t) const
 }
 
 
-void robot::appliquerMainDroite(terrain& t) {
+void robot::appliquerMainDroite(terrain& t, int modeAffichage) {
     while (!t.obtenirCellule(d_position).estArrivee()) {
         std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
         _getch();
@@ -211,7 +211,7 @@ void robot::appliquerMainDroite(terrain& t) {
             t.obtenirCellule(d_position).rendreRobot();
         }
 
-        t.afficherTerrain(d_position,d_direction);
+        t.afficherTerrain(d_position,d_direction,modeAffichage);
     }
 
     std::cout << "Arrivé à la destination avec l'algorithme de la Main Droite." << std::endl;
@@ -368,7 +368,7 @@ void robot::appliquerPledge(terrain& t) {
     std::cout << "Arrivé à la destination avec l'algorithme de Pledge." << std::endl;
 }*/
 
-void robot::appliquerPledge(terrain& t) {
+void robot::appliquerPledge(terrain& t,int modeAffichage) {
     int compteurRotation = 0; // Compteur des changements de direction
 
     while (!t.obtenirCellule(d_position).estArrivee()) {
@@ -416,7 +416,7 @@ void robot::appliquerPledge(terrain& t) {
             t.obtenirCellule(d_position).rendreRobot();
         }
 
-        t.afficherTerrain(d_position,d_direction);
+        t.afficherTerrain(d_position,d_direction,modeAffichage);
 
         // Afficher les informations de débogage
         std::cout << "Position actuelle : (" << d_position.x() << ", " << d_position.y() << ")\n";

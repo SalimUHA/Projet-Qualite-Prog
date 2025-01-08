@@ -88,23 +88,22 @@ void terrain::definirArrivee(const position &pos)
   d_grille[pos.y()][pos.x()].rendreArrivee();
 }
 
-void terrain::afficherTerrain() const
+void terrain::afficherTerrain(int modeAffichage) const
       {
     for (int i = 0; i < d_hauteur; ++i)
   {
       for (int j = 0; j < d_largeur; ++j)
       {
-        d_grille[i][j].afficherCellule();
+        d_grille[i][j].afficherCellule(modeAffichage);
       }
       std::cout << std::endl;
     }
   }
 
 
-void terrain::afficherTerrain(const position& robotPos, const std::string& robotDirection) const {
+void terrain::afficherTerrain(const position& robotPos, const std::string& robotDirection,int modeAffichage) const {
     char robotSymbol;
 
-    // Détermine le symbole du robot en fonction de la direction
     if (robotDirection == "NORD") {
         robotSymbol = '^';
     } else if (robotDirection == "EST") {
@@ -122,7 +121,7 @@ void terrain::afficherTerrain(const position& robotPos, const std::string& robot
             if (robotPos.x() == x && robotPos.y() == y) {
                 std::cout << robotSymbol; // Affiche le robot
             } else {
-                d_grille[y][x].afficherCellule(); // Affiche la cellule normale
+                d_grille[y][x].afficherCellule(modeAffichage); // Affiche la cellule normale
             }
         }
         std::cout << '\n';
@@ -130,31 +129,6 @@ void terrain::afficherTerrain(const position& robotPos, const std::string& robot
     std::cout << '\n';
 }
 
-
-void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
-{
-    std::ofstream fichier(nomFichier);
-
-    if(!fichier)
-    {
-        std::cout<<"Erreur, impossible d'ouvrir le fichier du nom de : "<<nomFichier;
-        return;
-    }
-
-    fichier << d_largeur << " " << d_hauteur << "\n";
-
-    for (int i = 0; i < d_hauteur; ++i)
-    {
-        for (int j = 0; j < d_largeur; ++j)
-        {
-            fichier << d_grille[i][j].obtenirCaractere();
-        }
-        fichier << "\n";
-    }
-
-    fichier.close();
-
-}
 
 void terrain::chargerDepuisFichier(const std::string& nomFichier)
 {
