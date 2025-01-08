@@ -25,7 +25,7 @@ public:
   void chargerDepuisFichier(const std::string &nomFichier);
   void sauvegarderDansFichier(const std::string &nomFichier) const;
   void afficherTerrain() const;
-  void afficherTerrain(const position& robotPos) const;
+  void afficherTerrain(const position& robotPos, const std::string& robotDirection) const;
   bool estLibre(int x, int y) const;
   cellule getCase(int x, int y) const;
 

@@ -101,19 +101,35 @@ void terrain::afficherTerrain() const
   }
 
 
-void terrain::afficherTerrain(const position& robotPos) const {
+void terrain::afficherTerrain(const position& robotPos, const std::string& robotDirection) const {
+    char robotSymbol;
+
+    // Détermine le symbole du robot en fonction de la direction
+    if (robotDirection == "NORD") {
+        robotSymbol = '^';
+    } else if (robotDirection == "EST") {
+        robotSymbol = '>';
+    } else if (robotDirection == "SUD") {
+        robotSymbol = 'v';
+    } else if (robotDirection == "OUEST") {
+        robotSymbol = '<';
+    } else {
+        robotSymbol = 'R'; // Valeur par défaut si la direction est inconnue
+    }
+
     for (int y = 0; y < d_hauteur; ++y) {
         for (int x = 0; x < d_largeur; ++x) {
             if (robotPos.x() == x && robotPos.y() == y) {
-                std::cout << 'R'; // Repr�sentation du robot
+                std::cout << robotSymbol; // Affiche le robot
             } else {
-                d_grille[y][x].afficherCellule();
+                d_grille[y][x].afficherCellule(); // Affiche la cellule normale
             }
         }
         std::cout << '\n';
     }
     std::cout << '\n';
 }
+
 
 void terrain::sauvegarderDansFichier(const std::string &nomFichier) const
 {

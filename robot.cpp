@@ -211,7 +211,7 @@ void robot::appliquerMainDroite(terrain& t) {
             t.obtenirCellule(d_position).rendreRobot();
         }
 
-        t.afficherTerrain(d_position);
+        t.afficherTerrain(d_position,d_direction);
     }
 
     std::cout << "Arrivé à la destination avec l'algorithme de la Main Droite." << std::endl;
@@ -416,7 +416,7 @@ void robot::appliquerPledge(terrain& t) {
             t.obtenirCellule(d_position).rendreRobot();
         }
 
-        t.afficherTerrain(d_position);
+        t.afficherTerrain(d_position,d_direction);
 
         // Afficher les informations de débogage
         std::cout << "Position actuelle : (" << d_position.x() << ", " << d_position.y() << ")\n";
