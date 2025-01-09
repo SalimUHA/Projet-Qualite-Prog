@@ -13,7 +13,6 @@ private:
     observateurStatistiques* d_stats;
     int d_algorithmeChoisi;
     int d_modeAffichage;
-    int d_modeAffichage;
     bool terrainCharge;
 
 public:
