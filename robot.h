@@ -16,7 +16,8 @@ class robot {
 public:
 	robot(const position& startPos);
     position obtenirPosition() const;
-    void deplacer(const position& nouvellePos);
+    std::string obtenirDirection() const;
+    void deplacer(const position& nouvellePosition);
 	void avancerUneCase(terrain &t);
 	void tournerDroite();
 	void tournerGauche();
@@ -25,9 +26,9 @@ public:
     void supprimerObservateur(observateur* obs);
     void notifierObservateurs();
     position calculerPositionRelative(const std::string& directionRelative) const;
-    bool detecterObstacle(const terrain& terrain) const;
-    bool detecterObstacleADroite(const terrain& t) const;
-    bool detecterObstacleAGauche(const terrain& t) const;
+    bool devantEstLibre(const terrain& terrain) const;
+    bool droiteEstLibre(const terrain& t) const;
+    bool gaucheEstLibre(const terrain& t) const;
     void appliquerMainDroite(terrain& t,int modeAffichage);
     void appliquerPledge(terrain& t,int modeAffichage);
 

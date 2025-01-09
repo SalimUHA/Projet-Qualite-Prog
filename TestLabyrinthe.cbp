@@ -2,28 +2,26 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="ProjetLabyrinthe" />
+		<Option title="TestLabyrinthe" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/ProjetLabyrinthe" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/TestLabyrinthe" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="./" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/ProjetLabyrinthe" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/TestLabyrinthe" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="./" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -36,9 +34,9 @@
 		</Compiler>
 		<Unit filename="celulle.cpp" />
 		<Unit filename="celulle.h" />
+		<Unit filename="doctest.h" />
 		<Unit filename="labyrinthe.cpp" />
 		<Unit filename="labyrinthe.h" />
-		<Unit filename="main.cpp" />
 		<Unit filename="maintest.cpp" />
 		<Unit filename="observateur.cpp" />
 		<Unit filename="observateur.h" />
@@ -48,10 +46,13 @@
 		<Unit filename="observateurStatistiques.h" />
 		<Unit filename="position.cpp" />
 		<Unit filename="position.h" />
+		<Unit filename="positionTest.cpp" />
 		<Unit filename="robot.cpp" />
 		<Unit filename="robot.h" />
+		<Unit filename="robotTest.cpp" />
 		<Unit filename="terrain.cpp" />
 		<Unit filename="terrain.h" />
+		<Unit filename="terrainTest.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

@@ -102,13 +102,16 @@ position &position::operator/=(double r)
     return *this;
 }
 
-position operator*(double r, const position &p)
+position operator*(const double& r, const position &p)
 {
-    position multiple{p.x()*r,p.y()*r};
-    return multiple;
+     return position{r * p.d_x, r * p.d_y};
 }
 
 bool position::operator!=(const position& other) const
 {
     return d_x != other.d_x || d_y != other.d_y;
+}
+
+bool position::operator==(const position& other) const {
+    return d_x == other.d_x && d_y == other.d_y;
 }

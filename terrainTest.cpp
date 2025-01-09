@@ -1,10 +1,11 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
 #include "doctest.h"
 #include "terrain.h"
 #include "position.h"
 #include "celulle.h"
-
-TEST_CASE("Tests de la classe terrain") {
+#include "observateurConsole.h"
+#include <sstream>
+/*TEST_CASE("Tests de la classe terrain") {
     SUBCASE("Construction et dimensions du terrain") {
         terrain t{10, 5};
         REQUIRE_EQ(t.obtenirLargeur(), 10);
@@ -62,5 +63,45 @@ TEST_CASE("Tests de la classe terrain") {
         t.definirMur(mur);
         t.afficherTerrain();
         // Vérification visuelle (ou implémentation de la capture de sortie pour automatiser le test).
+    }
+}
+*/
+
+
+// Tests pour la classe terrain
+
+
+TEST_CASE("Tests de la classe terrain") {
+    terrain t(5, 5);
+
+    SUBCASE("Initialisation") {
+        REQUIRE_EQ(t.obtenirLargeur(), 5);
+        REQUIRE_EQ(t.obtenirHauteur(), 5);
+    }
+
+    SUBCASE("Gestion des cellules") {
+        position pos(2, 2);
+        t.definirMur(pos);
+        REQUIRE(t.obtenirCellule(pos).estMur());
+
+        t.definirDepart(pos);
+        REQUIRE(t.obtenirCellule(pos).estDepart());
+
+        t.definirArrivee(pos);
+        REQUIRE(t.obtenirCellule(pos).estArrivee());
+    }
+
+    SUBCASE("Chargement depuis fichier") {
+        t.chargerDepuisFichier("terrain_test.txt");
+        REQUIRE_EQ(t.obtenirLargeur(), 10);
+        REQUIRE_EQ(t.obtenirHauteur(), 5);
+    }
+
+    SUBCASE("Vérification des cellules libres") {
+        position pos(1, 1);
+        t.definirMur(pos);
+        REQUIRE_FALSE(t.estLibre(1, 1));
+
+        REQUIRE(t.estLibre(0, 0));
     }
 }

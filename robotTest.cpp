@@ -2,111 +2,143 @@
 // Created by SAID on 03/01/2025.
 //
 
+#include <sstream>
 #include <stdexcept>
-#include <iostream>
-#include <vector>
-using namespace std;
 
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
 #include "doctest.h"
 #include "robot.h"
 #include "position.h"
 #include "terrain.h"
 #include "celulle.h"
 #include "observateurConsole.h"
-
 TEST_CASE("Tests de la classe robot") {
-    terrain t{5, 5};
+    terrain t(10, 10);
+    t.definirDepart(position(0, 0));
+    t.definirArrivee(position(9, 9));
+    robot r(t.obtenirPositionDepart());
 
-    SUBCASE("Création du robot") {
-        SUBCASE("Création réussie dans une cellule libre") {
-            robot r{position{2, 3}};
-            REQUIRE_EQ(r.obtenirPosition(), position{2, 3});
-            REQUIRE_EQ(t.obtenirCellule(position{2, 3}).estVide(), true);
+    SUBCASE("Initialisation du robot") {
+        REQUIRE_EQ(r.obtenirPosition(), position(0, 0));
+        REQUIRE_EQ(r.obtenirDirection(), "NORD");
+    }
+
+    SUBCASE("Déplacement du robot") {
+        SUBCASE("Déplacement valide") {
+            position newPos(1, 0);
+            r.deplacer(newPos);
+            REQUIRE_EQ(r.obtenirPosition(), newPos);
         }
 
-        SUBCASE("Échec si la position initiale est occupée") {
-            position p{1, 1};
-            t.obtenirCellule(p).rendreMur();
-            CHECK_THROWS_AS(robot{p}, runtime_error);
+        SUBCASE("Déplacement vers une cellule occupée") {
+            t.definirMur(position(1, 0));
+            CHECK_THROWS_AS(r.deplacer(position(1, 0)), std::runtime_error);
         }
 
-        SUBCASE("Échec si la position initiale est hors du terrain") {
-            position p{10, 10};
-            CHECK_THROWS_AS(robot{p}, out_of_range);
+        SUBCASE("Déplacement hors limites") {
+            CHECK_THROWS_AS(r.deplacer(position(-1, 0)), std::out_of_range);
         }
     }
 
-    SUBCASE("Déplacements du robot") {
-        robot r{position{0, 0}};
-        position p{1, 1};
-        SUBCASE("Déplacement valide vers une cellule libre") {
-            r.deplacer(p);
-            REQUIRE_EQ(r.obtenirPosition(), p);
-            REQUIRE_EQ(t.obtenirCellule(position{0, 0}).estVide(), true);
-            REQUIRE_EQ(t.obtenirCellule(position{1, 1}).estVide(), false);
+    SUBCASE("Gestion des directions") {
+        SUBCASE("Rotation à droite") {
+            r.tournerDroite();
+            REQUIRE_EQ(r.obtenirDirection(), "EST");
+
+            r.tournerDroite();
+            REQUIRE_EQ(r.obtenirDirection(), "SUD");
+
+            r.tournerDroite();
+            REQUIRE_EQ(r.obtenirDirection(), "OUEST");
+
+            r.tournerDroite();
+            REQUIRE_EQ(r.obtenirDirection(), "NORD");
         }
 
-        SUBCASE("Déplacement invalide vers une cellule occupée") {
-            t.obtenirCellule(position{1, 1}).rendreMur();
-            CHECK_THROWS_AS(r.deplacer(position{1, 1}), runtime_error);
-        }
+        SUBCASE("Rotation à gauche") {
+            r.tournerGauche();
+            REQUIRE_EQ(r.obtenirDirection(), "OUEST");
 
-        SUBCASE("Déplacement invalide hors du terrain") {
-            CHECK_THROWS_AS(r.deplacer(position{-1, 0}), out_of_range);
-        }
-    }
+            r.tournerGauche();
+            REQUIRE_EQ(r.obtenirDirection(), "SUD");
 
-    SUBCASE("Interaction avec le terrain") {
-        robot r{position{2, 2}};
+            r.tournerGauche();
+            REQUIRE_EQ(r.obtenirDirection(), "EST");
 
-        SUBCASE("Le robot libère correctement une cellule après déplacement") {
-            r.deplacer(position{3, 3});
-            REQUIRE_EQ(t.obtenirCellule(position{2, 2}).estVide(), true);
-            REQUIRE_EQ(t.obtenirCellule(position{3, 3}).estVide(), false);
-        }
-
-        SUBCASE("Le robot détecte une cellule occupée") {
-            t.obtenirCellule(position{4, 4}).rendreMur();
-            CHECK_THROWS_AS(r.deplacer(position{4, 4}), runtime_error);
+            r.tournerGauche();
+            REQUIRE_EQ(r.obtenirDirection(), "NORD");
         }
     }
 
-    SUBCASE("Gestion des observateurs") {
-        robot r{position{0, 0}};
-        observateurConsole obs1;
-        observateurConsole obs2;
-
-        SUBCASE("Ajout et notification des observateurs") {
-            r.ajouterObservateur(&obs1);
-            r.ajouterObservateur(&obs2);
-            r.notifierObservateurs();
-            REQUIRE_EQ(obs1.getNotifications(), 1);
-            REQUIRE_EQ(obs2.getNotifications(), 1);
+    SUBCASE("Détection d'obstacles") {
+        SUBCASE("Obstacle devant") {
+            t.definirMur(position(0, 1));
+            REQUIRE_FALSE(r.devantEstLibre(t));
         }
 
-        SUBCASE("Suppression des observateurs") {
-            r.ajouterObservateur(&obs1);
-            r.ajouterObservateur(&obs2);
-            r.supprimerObservateur(&obs1);
-            r.notifierObservateurs();
-            REQUIRE_EQ(obs1.getNotifications(), 0);
-            REQUIRE_EQ(obs2.getNotifications(), 1);
+        SUBCASE("Pas d'obstacle devant") {
+            REQUIRE(r.devantEstLibre(t));
+        }
+
+        SUBCASE("Obstacle à droite") {
+            r.tournerDroite();
+            t.definirMur(position(1, 0));
+            REQUIRE_FALSE(r.droiteEstLibre(t));
+        }
+
+        SUBCASE("Pas d'obstacle à droite") {
+            REQUIRE(r.droiteEstLibre(t));
         }
     }
 
-    SUBCASE("Détection d'obstacle") {
-        robot r{position{3, 3}};
+    SUBCASE("Interaction avec les observateurs") {
+        observateurConsole obs;
 
-        SUBCASE("Aucun obstacle détecté") {
-            REQUIRE_EQ(r.detecterObstacle(t), false);
+        // Ajoute l'observateur
+        r.ajouterObservateur(&obs);
+
+        // Redirige la sortie standard pour capturer les notifications
+        std::ostringstream sortieCapturee;
+        std::streambuf* coutBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(sortieCapturee.rdbuf());
+
+        // Déplace le robot
+        r.deplacer(position(1, 1));
+        r.notifierObservateurs();
+
+        // Restaure la sortie standard
+        std::cout.rdbuf(coutBuffer);
+
+        REQUIRE_EQ(sortieCapturee.str(), "Position : (1, 1), Direction : NORD\n");
+    }
+
+    SUBCASE("Algorithmes de labyrinthe avec mode d'affichage") {
+        t.chargerDepuisFichier("labyrinthe_test.txt");
+
+        SUBCASE("Main Droite avec mode d'affichage simple") {
+            std::ostringstream sortieCapturee;
+            std::streambuf* coutBuffer = std::cout.rdbuf();
+            std::cout.rdbuf(sortieCapturee.rdbuf());
+
+            CHECK_NOTHROW(r.appliquerMainDroite(t, 1));
+
+            std::cout.rdbuf(coutBuffer);
+
+            REQUIRE(t.obtenirCellule(r.obtenirPosition()).estArrivee());
+            REQUIRE(!sortieCapturee.str().empty()); // Vérifie que l'affichage a été produit
         }
 
-        SUBCASE("Obstacle détecté après déplacement") {
-            position murPos{3, 4};
-            t.definirMur(murPos);
-            r.deplacer(position{3, 4});
-            REQUIRE_EQ(r.detecterObstacle(t), true);
+        SUBCASE("Pledge avec mode d'affichage amélioré") {
+            std::ostringstream sortieCapturee;
+            std::streambuf* coutBuffer = std::cout.rdbuf();
+            std::cout.rdbuf(sortieCapturee.rdbuf());
+
+            CHECK_NOTHROW(r.appliquerPledge(t, 2));
+
+            std::cout.rdbuf(coutBuffer);
+
+            REQUIRE(t.obtenirCellule(r.obtenirPosition()).estArrivee());
+            REQUIRE(!sortieCapturee.str().empty()); // Vérifie que l'affichage a été produit
         }
     }
 }
