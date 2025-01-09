@@ -39,7 +39,6 @@
 		<Unit filename="labyrinthe.cpp" />
 		<Unit filename="labyrinthe.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="maintest.cpp" />
 		<Unit filename="observateur.cpp" />
 		<Unit filename="observateur.h" />
 		<Unit filename="observateurConsole.cpp" />

@@ -190,12 +190,6 @@ void robot::appliquerPledge(terrain& t,int modeAffichage) {
         std::cout << "Appuyez sur une touche pour continuer..." << std::endl;
         _getch();
 
-        // Positions relatives
-        position droite = calculerPositionRelative("DROITE");
-        position devant = calculerPositionRelative("DEVANT");
-
-
-
         // Instruction 1 : Avancer tout droit tant que possible
         if (compteurRotation == 0) {
             if (devantEstLibre(t)) {

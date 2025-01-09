@@ -12,7 +12,8 @@ private:
     robot* d_robot;
     observateurStatistiques* d_stats;
     int d_algorithmeChoisi;
-    int d_modeAffichage; // Nouveau : mode d'affichage sélectionné
+    int d_modeAffichage;
+    int d_modeAffichage;
     bool terrainCharge;
 
 public:
@@ -21,7 +22,7 @@ public:
 
     void chargerTerrain(const std::string& nomFichier);
     void choisirAlgorithme(int algorithme);
-    void choisirModeAffichage(int mode); // Nouveau : méthode pour choisir un mode d'affichage
+    void choisirModeAffichage(int mode);
     void lancerJeu();
     void afficherMenu();
 };
